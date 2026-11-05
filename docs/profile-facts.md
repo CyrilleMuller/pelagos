@@ -1,11 +1,21 @@
 # Pascaline Wolfermann — profile facts (source material for site copy)
 
-LinkedIn (https://www.linkedin.com/in/pascalinewolfermann/) could not be fetched from the build
-environment, so these facts come from public web sources. Keep copy consistent with them.
+Career history below comes from her LinkedIn (https://www.linkedin.com/in/pascalinewolfermann/);
+other facts come from public web sources. Keep copy consistent with them.
 **Do not invent** client names, testimonials, quotes, awards, precise figures, or certifications.
 Where copy is illustrative (e.g. sample engagements), label it as such.
 
-## Verified-ish facts (public sources)
+## Authoritative career history (from her LinkedIn — overrides anything below)
+- Chair, Ethics Committee — European Aero-Medical Institute (EURAMI) e.V. — Jul 2024–Present.
+- Director, Global Solutions Healthcare Intelligence — UnitedHealthcare Global — Apr 2016–May 2025 (9 yrs), United States, remote. "Leading global medical and transport providers quality assessment program as well as global country health surveillance to educate globally mobile customers about their new assignment's local health care landscape, access and quality. Team develops customized health intelligence reports, such as Medical Emergency Response Plans for large events or for remote locations." Skills: Business Travel, Geopolitics (+9).
+- Board Member — EURAMI — Nov 2012–Nov 2018 (say "Board Member", not Vice-President).
+- Director, Health, Aero-Medical & Logistics Intelligence, Global Assistance — UnitedHealth Group — May 2012–Apr 2016.
+- Resource Development Manager — FrontierMEDEX — Feb 2003–May 2012 (company acquired by UnitedHealthcare). (Yale Daily News 2011 called her director of resource development at MEDEX; use LinkedIn title.)
+- International Services / Product Management — GlobalCare, Inc. (now Zelis) — 2001–2003.
+- Administrator / Logistician — Médecins du Monde — 1993–1995, Iquitos, Peru: NGO emergency medical assistance for cholera outbreak in the Amazon basin.
+So: career since 1993 (30+ years), 22+ years at FrontierMEDEX/UnitedHealth, ~13 years leading health intelligence at UnitedHealth. New service ideas you may use: Medical Emergency Response Plans for large events & remote locations; medical/transport provider quality assessment programs; country health surveillance & assignment briefings for globally mobile employees.
+
+## Other public-source facts (lower confidence)
 - Left **UnitedHealthcare Global** (part of UnitedHealth Group) in 2025; now independent consultant/freelancer
   under the brand **Pelagos Global**.
 - Most recent title: **Director, Healthcare Intelligence** at UnitedHealthcare Global
