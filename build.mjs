@@ -17,7 +17,22 @@ export function build() {
   cpSync(join(SRC, 'css'), join(DIST, 'css'), { recursive: true });
   cpSync(join(SRC, 'js'), join(DIST, 'js'), { recursive: true });
 
-  const sections = list(join(SRC, 'sections'), '.html')
+  // content/site.json (optional): section order/toggles + config/features exposed as window.PG_SITE.
+  const sitePath = join(ROOT, 'content', 'site.json');
+  const site = existsSync(sitePath) ? JSON.parse(readFileSync(sitePath, 'utf8')) : null;
+  let sectionFiles = list(join(SRC, 'sections'), '.html');
+  if (site && Array.isArray(site.sections)) {
+    const listed = site.sections.map((s) => s.file);
+    sectionFiles = site.sections
+      .filter((s) => s.enabled !== false && sectionFiles.includes(s.file)).map((s) => s.file)
+      .concat(sectionFiles.filter((f) => !listed.includes(f))); // unlisted files: appended, enabled
+    writeFileSync(join(DIST, 'site.json'), JSON.stringify(site, null, 2) + '\n');
+  }
+  const siteScript = site
+    ? `<script>window.PG_SITE=${JSON.stringify({ config: site.config || {}, features: site.features || {} }).replace(/</g, '\\u003c')}</script>\n    `
+    : '';
+
+  const sections = sectionFiles
     .map((f) => `<!-- ${f} -->\n` + readFileSync(join(SRC, 'sections', f), 'utf8').trim())
     .join('\n\n');
   const styles = list(join(SRC, 'css'), '.css').map((f) => `<link rel="stylesheet" href="css/${f}">`).join('\n    ');
@@ -25,7 +40,7 @@ export function build() {
 
   const html = readFileSync(join(SRC, 'template.html'), 'utf8')
     .replace('<!-- @styles -->', styles)
-    .replace('<!-- @scripts -->', scripts)
+    .replace('<!-- @scripts -->', () => siteScript + scripts)
     .replace('<!-- @sections -->', sections)
     .replaceAll('{{year}}', String(new Date().getFullYear()));
   writeFileSync(join(DIST, 'index.html'), html);

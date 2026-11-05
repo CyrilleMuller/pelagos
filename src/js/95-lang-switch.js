@@ -2,7 +2,7 @@
    condensed translated one-pagers in public/{fr,es,de}/. */
 (function () {
   'use strict';
-  if (document.querySelector('.langsw')) return;
+  if (document.querySelector('.langsw') || (window.PG && PG.feature && !PG.feature('langSwitcher'))) return;
 
   var LANGS = [
     { code: 'en', label: 'EN', name: 'English', href: './' },

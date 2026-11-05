@@ -7,10 +7,13 @@
   function init() {
     var nav = $('#site-nav');
     if (!nav) return;
+    var feat = function (f) { return !PG.feature || PG.feature(f); };
     var bar = $('.nav-progress-bar');
+    if (bar && !feat('scrollProgress')) { (bar.parentNode || bar).style.display = 'none'; bar = null; }
     var toggle = $('.nav-toggle', nav);
     var menu = $('#nav-menu');
     var themeBtn = $('.nav-theme', nav);
+    if (themeBtn && !feat('darkMode')) { themeBtn.style.display = 'none'; themeBtn = null; }
     var topBtn = $('.footer-top');
     var links = $$('.nav-link', nav);
     var mq = window.matchMedia('(max-width: 1080px)');
@@ -114,6 +117,7 @@
     }
     /** Toggle (or set) the theme; persists and notifies listeners via 'pg:themechange'. */
     PG.toggleTheme = function (theme) {
+      if (!feat('darkMode')) return 'light';
       var next = theme === 'light' || theme === 'dark' ? theme
         : (root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
       root.setAttribute('data-theme', next);
