@@ -1,0 +1,36 @@
+# Browser smoke tests (Playwright/Chromium) against the built site on every pull request
+name: E2E
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Playwright
+        run: |
+          npm i --no-save playwright@1.63.0
+          npx playwright install --with-deps chromium
+      - name: Build
+        run: node build.mjs
+      - name: E2E
+        run: node scripts/e2e.mjs
+      - name: Upload failure screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-artifacts
+          path: dist/e2e-artifacts/
+          if-no-files-found: ignore
