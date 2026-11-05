@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Request a change | Pelagos Global</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('pg-theme');
+          if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="stylesheet" href="../css/00-tokens.css" />
+    <link rel="stylesheet" href="request.css" />
+  </head>
+  <body class="rq-body">
+    <main class="rq-wrap" id="main">
+      <p class="rq-back"><a href="../">&larr; Back to the website</a></p>
+      <header class="rq-head">
+        <h1>Hi Pascaline 👋 — tell us what to change</h1>
+        <p class="rq-lead">Describe the edit in your own words. It becomes a to-do on the site's task board, and you can follow its progress below.</p>
+      </header>
+
+      <form class="rq-card" id="rq-form" novalidate>
+        <div class="rq-grid">
+          <label class="rq-field">
+            <span>What kind of change?</span>
+            <select name="type" required>
+              <option>Text change</option>
+              <option>Add something</option>
+              <option>Remove something</option>
+              <option>Design or layout</option>
+              <option>New page or section</option>
+              <option>Bug</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label class="rq-field">
+            <span>Where on the site?</span>
+            <select name="area" required>
+              <option>Hero</option><option>About</option><option>Services</option><option>Experience</option>
+              <option>Expertise</option><option>Planner</option><option>Health brief sample</option>
+              <option>Insights</option><option>Example engagements</option><option>Process</option>
+              <option>Readiness check</option><option>FAQ</option><option>Resources</option><option>CV</option>
+              <option>Speaker kit</option><option>Translations</option><option>Contact</option>
+              <option>Whole site</option><option>Other</option>
+            </select>
+          </label>
+        </div>
+        <label class="rq-field">
+          <span>Current text <em>(optional — copy what's there now)</em></span>
+          <textarea name="current" rows="3"></textarea>
+        </label>
+        <label class="rq-field">
+          <span>New text, or describe the change</span>
+          <textarea name="change" rows="5" required></textarea>
+        </label>
+        <div class="rq-grid">
+          <fieldset class="rq-field rq-prio">
+            <legend>Priority</legend>
+            <label><input type="radio" name="priority" value="Whenever" checked /> Whenever</label>
+            <label><input type="radio" name="priority" value="This week" /> This week</label>
+            <label><input type="radio" name="priority" value="Urgent" /> Urgent</label>
+          </fieldset>
+          <label class="rq-field">
+            <span>Screenshot / file link <em>(optional, Google Drive or Dropbox)</em></span>
+            <input type="url" name="attachment" placeholder="https://" />
+          </label>
+        </div>
+        <div class="rq-grid">
+          <label class="rq-field"><span>Your name</span><input type="text" name="name" autocomplete="name" value="Pascaline" /></label>
+          <label class="rq-field"><span>Email <em>(optional)</em></span><input type="email" name="email" autocomplete="email" /></label>
+        </div>
+        <label class="rq-field">
+          <span>Short title <em>(optional — we'll make one if empty)</em></span>
+          <input type="text" name="title" maxlength="120" />
+        </label>
+
+        <p class="rq-error" id="rq-error" role="alert" hidden></p>
+        <div class="rq-actions">
+          <button type="submit" class="btn btn--primary" id="rq-submit">Submit via GitHub</button>
+          <button type="button" class="btn btn--ghost" id="rq-email" hidden>Send by email instead</button>
+          <span class="rq-draft" id="rq-draft" aria-live="polite"></span>
+        </div>
+        <p class="rq-hint" id="rq-hint">Opens GitHub with everything pre-filled — just press <strong>Create</strong> there.</p>
+        <div class="rq-success" id="rq-success" role="status" hidden></div>
+      </form>
+
+      <section class="rq-card rq-list" aria-labelledby="rq-list-h">
+        <div class="rq-list-head">
+          <h2 id="rq-list-h">Your requests</h2>
+          <button type="button" class="btn btn--ghost rq-refresh" id="rq-refresh">Refresh</button>
+        </div>
+        <div id="rq-items" aria-live="polite"><p class="rq-muted">Loading…</p></div>
+      </section>
+    </main>
+    <script src="request.js" defer></script>
+  </body>
+</html>
