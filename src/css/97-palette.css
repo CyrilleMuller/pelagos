@@ -1,0 +1,90 @@
+/* Command palette / site search (src/js/97-palette.js) */
+.palette-sr {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.palette-lock { overflow: hidden; }
+
+/* Trigger button */
+.palette-trigger {
+  display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 10px 0 12px;
+  border: 1px solid var(--c-border); border-radius: 999px; background: var(--c-surface);
+  color: var(--c-muted); font: 500 0.9rem var(--font-sans); cursor: pointer;
+  transition: border-color 0.2s var(--ease, ease), color 0.2s var(--ease, ease);
+}
+.palette-trigger:hover { border-color: var(--c-accent); color: var(--c-text); }
+.palette-trigger:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+.palette-trigger .icon { width: 18px; height: 18px; }
+.palette-trigger__kbd,
+.palette kbd {
+  font: 600 0.72rem var(--font-sans); padding: 2px 6px; border-radius: 6px;
+  border: 1px solid var(--c-border); background: var(--c-surface-2); color: var(--c-muted);
+}
+.palette-trigger--float {
+  position: fixed; top: calc(var(--nav-h, 64px) + 12px); right: 16px; z-index: 900; box-shadow: var(--shadow-md);
+}
+@media (max-width: 899px) {
+  .palette-trigger { width: 40px; height: 40px; padding: 0; justify-content: center; }
+  .palette-trigger__text, .palette-trigger__kbd { display: none; }
+}
+
+/* Dialog */
+.palette {
+  padding: 0; border: 0; background: transparent; color: var(--c-text);
+  width: min(640px, calc(100vw - 32px)); max-width: none; max-height: none;
+  margin: 12vh auto auto;
+}
+.palette::backdrop { background: rgba(4, 12, 20, 0.55); backdrop-filter: blur(3px); }
+.palette-panel {
+  display: flex; flex-direction: column; max-height: 70vh; overflow: hidden;
+  background: var(--c-surface); border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg, 16px); box-shadow: var(--shadow-lg);
+}
+.palette-field {
+  display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--c-border);
+}
+.palette-field > .icon { width: 20px; height: 20px; color: var(--c-muted); flex: none; }
+.palette-input {
+  flex: 1; min-width: 0; border: 0; background: transparent; color: var(--c-text);
+  font: 400 1.05rem var(--font-sans); padding: 6px 0; outline: none;
+}
+.palette-input::placeholder { color: var(--c-muted); }
+.palette-close { border: 0; background: transparent; padding: 4px; cursor: pointer; border-radius: 8px; }
+.palette-close:focus-visible { outline: 2px solid var(--c-accent); }
+
+.palette-list { list-style: none; margin: 0; padding: 6px; overflow-y: auto; overscroll-behavior: contain; flex: 1; }
+.palette-list ul { list-style: none; margin: 0; padding: 0; }
+.palette-group + .palette-group { margin-top: 6px; }
+.palette-group__label {
+  padding: 8px 10px 4px; font: 700 0.72rem var(--font-sans); letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--c-muted);
+}
+.palette-option {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  padding: 10px 12px; border-radius: var(--radius-sm, 8px); cursor: pointer; color: var(--c-text);
+}
+.palette-option[aria-selected='true'] { background: var(--c-accent-soft); box-shadow: inset 3px 0 0 var(--c-accent); }
+.palette-option__label { min-width: 0; overflow-wrap: anywhere; }
+.palette-option__hint {
+  flex: none; max-width: 40%; font-size: 0.82rem; color: var(--c-muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.palette-option mark { background: transparent; color: var(--c-accent); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+.palette-empty { padding: 24px 12px; text-align: center; color: var(--c-muted); }
+.palette-foot {
+  display: flex; gap: 16px; padding: 8px 14px; border-top: 1px solid var(--c-border);
+  font-size: 0.8rem; color: var(--c-muted); background: var(--c-surface-2);
+}
+.palette-foot kbd { margin-right: 3px; }
+
+/* Mobile: full-screen sheet */
+@media (max-width: 600px) {
+  .palette { width: 100vw; height: 100dvh; margin: 0; }
+  .palette-panel { height: 100%; max-height: none; border-radius: 0; border: 0; }
+  .palette-foot { display: none; }
+  .palette-input { font-size: 16px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .palette[open] .palette-panel { animation: palette-in 0.16s var(--ease, ease-out); }
+  @keyframes palette-in { from { opacity: 0; transform: translateY(-6px) scale(0.99); } }
+}

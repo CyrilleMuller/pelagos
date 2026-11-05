@@ -1,0 +1,74 @@
+name: Change request
+description: Ask for an edit or change on the website (text, design, new section, bug…)
+title: "[Change] "
+labels: [change-request]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Hi Pascaline 👋 — tell us what to change. Prefer a simpler form? Use the [request portal](https://cyrillemuller.github.io/pelagos/request/).
+  - type: dropdown
+    id: type
+    attributes:
+      label: What kind of change?
+      options:
+        - Text change
+        - Add something
+        - Remove something
+        - Design or layout
+        - New page or section
+        - Bug
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where on the site?
+      options:
+        - Hero
+        - About
+        - Services
+        - Experience
+        - Expertise
+        - Planner
+        - Health brief sample
+        - Insights
+        - Example engagements
+        - Process
+        - Readiness check
+        - FAQ
+        - Resources
+        - CV
+        - Speaker kit
+        - Translations
+        - Contact
+        - Whole site
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Current text (optional)
+      description: Copy the text as it is now, so we can find it.
+  - type: textarea
+    id: change
+    attributes:
+      label: New text or description of the change
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - Whenever
+        - This week
+        - Urgent
+  - type: input
+    id: attachment
+    attributes:
+      label: Screenshot or file link (optional)
+      description: Google Drive / Dropbox link, or drag an image into the box above.
+      placeholder: https://
