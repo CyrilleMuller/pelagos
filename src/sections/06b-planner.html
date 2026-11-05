@@ -1,0 +1,154 @@
+<section id="planner" class="section planner" aria-labelledby="planner-title">
+  <div class="container">
+    <div class="section-head section-head--center reveal">
+      <span class="eyebrow">Interactive planning aid</span>
+      <h2 id="planner-title">Sketch your Medical Emergency Response Plan</h2>
+      <p class="lead">Describe your event, site or mission. A structured plan outline builds as you go, with the
+        checklist items, complexity level and first moves that matter most for your situation.</p>
+    </div>
+
+    <div class="planner-shell reveal" data-planner>
+      <form class="planner-form card" data-planner-form novalidate aria-label="Plan parameters">
+        <fieldset class="planner-field">
+          <legend class="planner-label">
+            <span class="planner-step" aria-hidden="true">1</span> What are you planning for?
+          </legend>
+          <div class="planner-scenarios">
+            <label class="planner-opt">
+              <input type="radio" name="scenario" value="event" checked>
+              <span class="planner-opt-card">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18M5 20V9l7-5 7 5v11"/><path d="M9 20v-6h6v6"/></svg>
+                Large international event
+              </span>
+            </label>
+            <label class="planner-opt">
+              <input type="radio" name="scenario" value="worksite">
+              <span class="planner-opt-card">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20h20M4 20v-6l5-3v3l5-3v3l5-3v9"/><path d="M17 8V4h2v4"/></svg>
+                Remote work site
+              </span>
+            </label>
+            <label class="planner-opt">
+              <input type="radio" name="scenario" value="expedition">
+              <span class="planner-opt-card">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20l6-11 4 6 3-4 5 9z"/><path d="M9 9V4l4 1.5L9 7"/></svg>
+                Expedition or field mission
+              </span>
+            </label>
+            <label class="planner-opt">
+              <input type="radio" name="scenario" value="study">
+              <span class="planner-opt-card">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/></svg>
+                Study-abroad program
+              </span>
+            </label>
+            <label class="planner-opt">
+              <input type="radio" name="scenario" value="executive">
+              <span class="planner-opt-card">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg>
+                Executive travel
+              </span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="planner-field">
+          <label class="planner-label" for="planner-headcount">
+            <span class="planner-step" aria-hidden="true">2</span> Approximate headcount
+            <output class="planner-value" for="planner-headcount" data-planner-headcount-out>1,000</output>
+          </label>
+          <input class="planner-range" id="planner-headcount" name="headcount" type="range" min="0" max="11" step="1" value="6"
+            aria-describedby="planner-headcount-hint">
+          <p class="planner-hint" id="planner-headcount-hint">Participants, staff and contractors combined.</p>
+        </div>
+
+        <div class="planner-field">
+          <label class="planner-label" for="planner-duration">
+            <span class="planner-step" aria-hidden="true">3</span> Duration
+          </label>
+          <select class="planner-select" id="planner-duration" name="duration">
+            <option value="0">1 to 3 days</option>
+            <option value="1" selected>4 to 14 days</option>
+            <option value="2">2 to 8 weeks</option>
+            <option value="3">2 to 6 months</option>
+            <option value="4">6 months or ongoing</option>
+          </select>
+        </div>
+
+        <fieldset class="planner-field">
+          <legend class="planner-label"><span class="planner-step" aria-hidden="true">4</span> Remoteness</legend>
+          <div class="planner-seg">
+            <label class="planner-seg-opt"><input type="radio" name="remote" value="0" checked><span>Urban</span></label>
+            <label class="planner-seg-opt"><input type="radio" name="remote" value="1"><span>Regional</span></label>
+            <label class="planner-seg-opt"><input type="radio" name="remote" value="2"><span>Remote</span></label>
+            <label class="planner-seg-opt"><input type="radio" name="remote" value="3"><span>Very remote / offshore</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="planner-field">
+          <legend class="planner-label"><span class="planner-step" aria-hidden="true">5</span> Local healthcare capability</legend>
+          <div class="planner-seg">
+            <label class="planner-seg-opt"><input type="radio" name="care" value="unknown"><span>Unknown</span></label>
+            <label class="planner-seg-opt"><input type="radio" name="care" value="limited"><span>Limited</span></label>
+            <label class="planner-seg-opt"><input type="radio" name="care" value="moderate" checked><span>Moderate</span></label>
+            <label class="planner-seg-opt"><input type="radio" name="care" value="advanced"><span>Advanced</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="planner-field">
+          <legend class="planner-label"><span class="planner-step" aria-hidden="true">6</span> Special risks <span class="planner-optional">(select any)</span></legend>
+          <div class="planner-chips">
+            <label class="planner-chip"><input type="checkbox" name="risk" value="heat"><span>Heat</span></label>
+            <label class="planner-chip"><input type="checkbox" name="risk" value="altitude"><span>Altitude</span></label>
+            <label class="planner-chip"><input type="checkbox" name="risk" value="infectious"><span>Infectious disease</span></label>
+            <label class="planner-chip"><input type="checkbox" name="risk" value="security"><span>Security</span></label>
+            <label class="planner-chip"><input type="checkbox" name="risk" value="maritime"><span>Maritime</span></label>
+            <label class="planner-chip"><input type="checkbox" name="risk" value="mass"><span>Mass gathering</span></label>
+            <label class="planner-chip"><input type="checkbox" name="risk" value="chronic"><span>Chronic conditions</span></label>
+          </div>
+        </fieldset>
+      </form>
+
+      <div class="planner-output card" data-planner-output>
+        <div class="planner-output-head">
+          <div>
+            <span class="planner-kicker">Plan outline</span>
+            <h3 class="planner-output-title" data-planner-title>Medical Emergency Response Plan</h3>
+          </div>
+          <div class="planner-actions" data-print-hide>
+            <button type="button" class="btn btn--ghost planner-btn" data-planner-copy>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>
+              Copy outline
+            </button>
+            <button type="button" class="btn btn--ghost planner-btn" data-planner-print>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7"/></svg>
+              Print outline
+            </button>
+          </div>
+        </div>
+
+        <div class="planner-live" data-planner-live aria-live="polite" aria-atomic="false">
+          <noscript>
+            <p>This planning aid needs JavaScript. You can still <a href="#contact">ask Pascaline directly</a> about a
+              Medical Emergency Response Plan for your event or site.</p>
+          </noscript>
+        </div>
+
+        <div class="planner-cta">
+          <p class="planner-cta-text">An outline is a starting point. A full plan adds verified facility data, named
+            providers, contact trees and drill scripts for your exact locations.</p>
+          <button type="button" class="btn btn--accent" data-planner-cta>
+            Have Pascaline build the full plan
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <p class="planner-disclaimer">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <span>Indicative planning aid only. It is not medical advice and does not replace a professionally prepared,
+        site-specific plan. Your inputs stay in your browser.</span>
+    </p>
+  </div>
+</section>
