@@ -112,13 +112,21 @@
       themeBtn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
       themeBtn.setAttribute('aria-pressed', dark ? 'true' : 'false');
     }
+    /** Toggle (or set) the theme; persists and notifies listeners via 'pg:themechange'. */
+    PG.toggleTheme = function (theme) {
+      var next = theme === 'light' || theme === 'dark' ? theme
+        : (root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('pg-theme', next); } catch (e) { /* storage unavailable */ }
+      var ev;
+      try { ev = new CustomEvent('pg:themechange', { detail: { theme: next } }); }
+      catch (e) { ev = document.createEvent('CustomEvent'); ev.initCustomEvent('pg:themechange', false, false, { theme: next }); }
+      document.dispatchEvent(ev);
+      return next;
+    };
+    document.addEventListener('pg:themechange', syncThemeBtn);
     if (themeBtn) {
-      themeBtn.addEventListener('click', function () {
-        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        root.setAttribute('data-theme', next);
-        try { localStorage.setItem('pg-theme', next); } catch (e) { /* storage unavailable */ }
-        syncThemeBtn();
-      });
+      themeBtn.addEventListener('click', function () { PG.toggleTheme(); });
       syncThemeBtn();
     }
 
