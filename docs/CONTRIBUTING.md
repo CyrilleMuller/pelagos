@@ -4,8 +4,10 @@ Zero-dependency static site. `node build.mjs` assembles `src/` into `dist/` (dep
 by `.github/workflows/static.yml`). Preview: `node build.mjs --serve` → http://localhost:8080.
 
 - `src/template.html` — page shell (head, `<main>`). Placeholders: `<!-- @seo -->`, `<!-- @styles -->`,
-  `<!-- @sections -->`, `<!-- @scripts -->`, `{{year}}`.
-- `src/sections/NN-name.html` — one file per page section, concatenated in filename order into `<main>`.
+  `<!-- @header -->`, `<!-- @sections -->`, `<!-- @footer -->`, `<!-- @scripts -->`, `{{year}}`.
+- `src/sections/NN-name.html` — one file per page section, concatenated in filename order into `<main>`
+  (except `*-nav.html`, rendered before `<main>` via `<!-- @header -->`, and `*-footer.html`, rendered after it via
+  `<!-- @footer -->`).
 - `src/css/NN-name.css` — auto-linked in filename order. `00-tokens.css` = design tokens + shared components.
 - `src/js/NN-name.js` — auto-included (deferred, filename order). `00-core.js` exposes `window.PG`
   (`PG.config`, `PG.$`, `PG.$$`, `PG.onVisible`, `PG.toast`, `PG.reducedMotion`).

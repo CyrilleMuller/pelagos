@@ -5,6 +5,7 @@
   background: var(--c-surface-2); border: 1px solid var(--c-border); border-radius: var(--radius-lg);
   padding: clamp(20px, 4vw, 40px);
 }
+.section--alt .kits-band { background: var(--c-surface); }
 @media (min-width: 900px) { .kits-band { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr); } }
 .kits-title { font-size: clamp(1.5rem, 2.6vw, 2rem); }
 .kits-lead { color: var(--c-muted); margin: 0; }
