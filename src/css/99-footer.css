@@ -1,0 +1,55 @@
+/* ==========================================================================
+   99 — Footer + back-to-top
+   ========================================================================== */
+.footer {
+  position: relative; background: var(--grad-ocean); color: rgba(255, 255, 255, 0.82);
+  padding: clamp(56px, 8vw, 88px) 0 28px;
+}
+.footer a { color: #fff; text-decoration: none; }
+.footer a:hover { color: var(--c-highlight); }
+.footer-inner {
+  display: grid; gap: clamp(32px, 5vw, 56px);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 760px) {
+  .footer-inner { grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.8fr) minmax(0, 1fr); }
+}
+.footer-logo { display: inline-flex; align-items: center; gap: 10px; font: 600 1.35rem/1.1 var(--font-serif); }
+.footer-logo-mark { width: 40px; height: 40px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.footer-logo-mark circle { stroke-width: 1.4; opacity: 0.7; }
+.footer-tagline { max-width: 42ch; margin-top: 16px; font-size: 0.98rem; }
+.footer-heading {
+  font: 600 0.76rem/1 var(--font-sans); letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--c-highlight); margin-bottom: 16px;
+}
+.footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.footer-nav a, .footer-contact li { display: inline-flex; align-items: center; gap: 10px; min-height: 36px; font-size: 0.98rem; }
+.footer-contact a { display: inline-flex; align-items: center; gap: 10px; min-width: 0; }
+.footer-email-text { overflow-wrap: anywhere; }
+.footer-cta { margin-top: 18px; }
+.footer .btn--accent, .footer .btn--accent:hover { color: #1b1404; }
+.footer-bottom {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
+  margin-top: clamp(40px, 6vw, 64px); padding-top: 22px;
+  background: linear-gradient(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.18)) center top / calc(100% - 2 * var(--gutter)) 1px no-repeat;
+  font-size: 0.88rem;
+}
+.footer-bottom p { margin: 0; }
+.footer-note { color: rgba(255, 255, 255, 0.66); max-width: 60ch; }
+.footer :focus-visible { outline-color: var(--c-highlight); }
+
+/* ---- Back to top ---- */
+.footer-top {
+  position: fixed; right: clamp(14px, 3vw, 28px); bottom: clamp(14px, 3vw, 28px); z-index: 90;
+  display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px;
+  border-radius: 999px; border: 1px solid var(--c-border); cursor: pointer;
+  background: var(--c-surface); color: var(--c-primary); box-shadow: var(--shadow-lg);
+  opacity: 0; visibility: hidden; transform: translateY(12px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0s linear 0.3s, border-color 0.2s;
+}
+.footer-top.is-visible {
+  opacity: 1; visibility: visible; transform: none;
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0s, border-color 0.2s;
+}
+.footer-top:hover { border-color: var(--c-accent); color: var(--c-accent); }
+.footer-top .icon { width: 22px; height: 22px; }
