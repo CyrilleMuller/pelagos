@@ -1,0 +1,114 @@
+/* ==========================================================================
+   05 — Experience: career timeline with scroll-filled line + education card
+   ========================================================================== */
+.experience-filters {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: clamp(24px, 4vw, 40px);
+}
+.experience-filter {
+  min-height: 40px; padding: 8px 16px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--c-border); background: var(--c-surface); color: var(--c-muted);
+  font: 600 0.9rem/1 var(--font-sans); transition: all 0.2s var(--ease);
+}
+.experience-filter:hover { border-color: var(--c-accent); color: var(--c-text); }
+.experience-filter[aria-pressed='true'] {
+  background: var(--c-primary); border-color: var(--c-primary); color: var(--c-primary-contrast);
+}
+
+.experience-layout {
+  display: grid; gap: clamp(28px, 4vw, 48px); grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 960px) {
+  .experience-layout { grid-template-columns: minmax(0, 1fr) 320px; align-items: start; }
+  .experience-aside { position: sticky; top: calc(var(--nav-h) + 24px); }
+}
+
+/* ---- Track + line ---- */
+.experience-track { position: relative; --exp-x: 15px; }
+.experience-line {
+  position: absolute; left: var(--exp-x); top: 10px; bottom: 10px; width: 2px;
+  background: var(--c-border); border-radius: 2px; overflow: hidden;
+}
+.experience-line-fill {
+  position: absolute; inset: 0; transform-origin: top; transform: scaleY(var(--exp-progress, 0));
+  background: linear-gradient(to bottom, var(--c-accent), var(--c-primary));
+  transition: transform 0.15s linear;
+}
+.experience-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+.experience-item { position: relative; padding-left: calc(var(--exp-x) * 2 + 18px); }
+.experience-item[hidden] { display: none; }
+.experience-dot {
+  position: absolute; left: calc(var(--exp-x) - 8px); top: 26px; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--c-surface); border: 2px solid var(--c-border);
+  transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.experience-item.is-active .experience-dot {
+  border-color: var(--c-accent); background: var(--c-accent); box-shadow: 0 0 0 5px var(--c-accent-soft);
+}
+.experience-item--now .experience-dot { border-color: var(--c-highlight); }
+.experience-item--now.is-active .experience-dot { background: var(--c-highlight); border-color: var(--c-highlight); }
+
+/* ---- Card ---- */
+.experience-card {
+  background: var(--c-surface); border: 1px solid var(--c-border); border-radius: var(--radius);
+  padding: clamp(18px, 2.6vw, 26px); box-shadow: var(--shadow-sm);
+  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.experience-card:hover, .experience-item.is-open .experience-card { border-color: var(--c-accent); box-shadow: var(--shadow-md); }
+.experience-item--now .experience-card { border-color: var(--c-highlight); }
+.experience-date {
+  display: flex; align-items: center; gap: 10px; margin: 0 0 6px;
+  font: 600 0.8rem/1.2 var(--font-sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-accent);
+}
+.experience-badge {
+  padding: 3px 9px; border-radius: 999px; background: var(--c-highlight); color: #1b1404;
+  font-size: 0.7rem; letter-spacing: 0.08em;
+}
+.experience-role { margin: 0 0 4px; font-size: clamp(1.12rem, 1.8vw, 1.3rem); }
+.experience-org { margin: 0 0 10px; font-weight: 600; color: var(--c-muted); font-size: 0.95rem; }
+.experience-summary { margin: 0; color: var(--c-text); }
+.experience-toggle {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; min-height: 36px; padding: 6px 2px;
+  background: none; border: 0; cursor: pointer; color: var(--c-accent); font: 600 0.92rem/1 var(--font-sans);
+}
+.experience-toggle:hover { color: var(--c-primary); }
+.experience-toggle .icon { transition: transform 0.25s var(--ease); }
+.experience-toggle[aria-expanded='true'] .icon { transform: rotate(180deg); }
+.experience-details { margin-top: 10px; padding-top: 14px; border-top: 1px dashed var(--c-border); color: var(--c-muted); }
+.experience-details > ul:not(.experience-tags) { margin: 0 0 12px; padding-left: 1.1em; }
+.experience-details li { margin-bottom: 6px; }
+.experience-details p:last-child { margin-bottom: 0; }
+.experience-details.is-entering { animation: experience-in 0.35s var(--ease); }
+@keyframes experience-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.experience-tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.experience-tags li {
+  margin: 0; padding: 4px 10px; border-radius: 999px; background: var(--c-accent-soft); color: var(--c-text);
+  font: 500 0.8rem/1.3 var(--font-sans);
+}
+
+/* ---- Aside ---- */
+.experience-aside { display: grid; gap: 18px; }
+.experience-edu { position: relative; overflow: hidden; }
+.experience-edu::after {
+  content: ''; position: absolute; right: -40px; top: -40px; width: 140px; height: 140px; border-radius: 50%;
+  background: var(--c-accent-soft); opacity: 0.6; pointer-events: none;
+}
+.experience-edu-icon {
+  position: relative; z-index: 1; display: inline-grid; place-items: center; width: 48px; height: 48px;
+  border-radius: 12px; background: var(--grad-ocean); color: #fff; margin-bottom: 14px;
+}
+.experience-edu-icon .icon { width: 26px; height: 26px; }
+.experience-edu-kicker {
+  margin: 0 0 6px; font: 600 0.75rem/1 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-accent);
+}
+.experience-edu-title { position: relative; z-index: 1; margin: 0 0 6px; font-size: 1.2rem; }
+.experience-edu-text { margin: 0; color: var(--c-muted); }
+.experience-glance { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.experience-glance li { padding-left: 18px; position: relative; color: var(--c-muted); font-size: 0.97rem; }
+.experience-glance li::before {
+  content: ''; position: absolute; left: 0; top: 0.6em; width: 7px; height: 7px; border-radius: 50%; background: var(--c-accent);
+}
+.experience-glance strong { color: var(--c-text); }
+
+@media (min-width: 720px) {
+  .experience-track { --exp-x: 22px; }
+}
