@@ -30,7 +30,13 @@
   };
 
   function load() { try { return JSON.parse(localStorage.getItem(LS_KEY)) || {}; } catch (e) { return {}; } }
-  function save() { try { localStorage.setItem(LS_KEY, JSON.stringify(S.cfg)); } catch (e) { /* private mode */ } }
+  function save() {
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify(S.cfg));
+      // Share the token with the change-request portal (/request/) and suggest-edit mode
+      if (S.cfg.token) localStorage.setItem('pg-admin-token', S.cfg.token); else localStorage.removeItem('pg-admin-token');
+    } catch (e) { /* private mode */ }
+  }
 
   // ---------- helpers ----------
   function $(s, c) { return (c || document).querySelector(s); }
