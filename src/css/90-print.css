@@ -1,0 +1,80 @@
+/* ==========================================================================
+   Print stylesheet: renders the page as a clean, CV-style document.
+   Hides navigation and interactive widgets, flattens colors to ink-on-paper.
+   ========================================================================== */
+@media print {
+  @page { size: A4; margin: 14mm 14mm 16mm; }
+
+  :root, [data-theme='light'], [data-theme='dark'] {
+    --c-bg: #fff; --c-surface: #fff; --c-surface-2: #fff; --c-text: #111; --c-muted: #444;
+    --c-border: #ccc; --c-primary: #0b3a5c; --c-primary-contrast: #fff; --c-accent: #0b3a5c;
+    --c-accent-soft: #fff; --c-highlight: #0b3a5c;
+    --shadow-sm: none; --shadow-md: none; --shadow-lg: none;
+    --grad-ocean: none; --section-y: 0;
+    color-scheme: light;
+  }
+
+  html { scroll-behavior: auto; font-size: 10pt; }
+  body {
+    background: #fff !important; color: #111 !important; font-size: 10pt; line-height: 1.45;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+
+  /* Hide chrome & interactive bits */
+  nav, header nav, .skip-link, .pg-toast, .pg-kbd, .pg-anchor, dialog, [role='dialog'],
+  button, form, input, select, textarea, video, audio, iframe, canvas,
+  [class*='nav'], [class*='menu'], [class*='toggle'], [class*='progress'], [class*='back-to-top'],
+  [class*='modal'], [class*='carousel'], [class*='map'], [data-print='hide'],
+  #assessment, .assessment, #faq { display: none !important; }
+  [data-print='show'] { display: block !important; }
+
+  /* Reveal everything that animates in */
+  .reveal, .reveal.is-visible, [class*='reveal'] { opacity: 1 !important; transform: none !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; box-shadow: none !important; text-shadow: none !important; }
+
+  /* Flatten sections */
+  .section, .section--alt, .section--dark, section {
+    background: none !important; color: #111 !important; padding: 0 !important; margin: 0 0 10pt !important;
+  }
+  .section--dark h2, .section--dark h3, .section--dark .lead, .section--dark .eyebrow { color: #111 !important; }
+  .container { max-width: none !important; padding: 0 !important; }
+  .section-head { margin-bottom: 6pt !important; max-width: none !important; }
+
+  /* Hero becomes a CV header */
+  #top { border-bottom: 2pt solid #0b3a5c; padding-bottom: 8pt !important; margin-bottom: 12pt !important; min-height: 0 !important; }
+  #top * { color: #111 !important; }
+  #top img { max-width: 28mm !important; max-height: 28mm !important; border-radius: 50%; }
+  #top [style*='background'], #top [class*='bg'] { background: none !important; }
+
+  /* Typography */
+  h1 { font-size: 22pt !important; margin: 0 0 4pt !important; }
+  h2 {
+    font-size: 13pt !important; margin: 10pt 0 5pt !important; padding-bottom: 2pt;
+    border-bottom: 0.75pt solid #999; color: #0b3a5c !important; break-after: avoid;
+  }
+  h3 { font-size: 11pt !important; margin: 6pt 0 2pt !important; break-after: avoid; }
+  p, li { orphans: 3; widows: 3; }
+  .eyebrow { font-size: 7.5pt !important; margin-bottom: 2pt !important; color: #555 !important; }
+  .lead { font-size: 10.5pt !important; color: #333 !important; }
+
+  /* Cards & grids: compact, no chrome */
+  .card { border: 0.5pt solid #ccc !important; border-radius: 4pt !important; padding: 6pt 8pt !important; break-inside: avoid; background: #fff !important; }
+  .grid { gap: 6pt !important; }
+  .chip { background: none !important; border: 0.5pt solid #999; padding: 1pt 5pt !important; font-size: 8pt !important; }
+  .btn { display: none !important; }
+  .icon { width: 10pt !important; height: 10pt !important; }
+  img { max-width: 100% !important; break-inside: avoid; }
+
+  /* Links: show external URLs, drop in-page anchors */
+  a { color: #0b3a5c !important; text-decoration: none !important; }
+  main a[href^='http']::after { content: ' (' attr(href) ')'; font-size: 8pt; color: #555; word-break: break-all; }
+  main a[href^='mailto:']::after { content: ' (' attr(href) ')'; font-size: 8pt; color: #555; }
+  main a:has(img)::after { content: none; }
+
+  /* Footer: a single contact line */
+  footer { border-top: 0.75pt solid #999; padding-top: 6pt !important; margin-top: 10pt; font-size: 8.5pt; background: none !important; color: #444 !important; }
+  footer * { color: #444 !important; background: none !important; }
+
+  /* CV footer note added by 90-enhancements.js (data-print='show') */
+  .pg-print-note { display: block !important; margin-top: 10pt; font-size: 8pt; color: #555; text-align: center; }
+}

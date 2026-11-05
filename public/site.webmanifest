@@ -1,0 +1,15 @@
+{
+  "name": "Pelagos Global — Pascaline Wolfermann",
+  "short_name": "Pelagos",
+  "description": "Independent consulting in global healthcare intelligence, aeromedical transport and duty-of-care programs.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f8fa",
+  "theme_color": "#0b3a5c",
+  "lang": "en",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
