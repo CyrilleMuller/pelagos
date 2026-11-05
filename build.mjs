@@ -32,16 +32,26 @@ export function build() {
     ? `<script>window.PG_SITE=${JSON.stringify({ config: site.config || {}, features: site.features || {} }).replace(/</g, '\\u003c')}</script>\n    `
     : '';
 
-  const sections = sectionFiles
+  // Sections are grouped by landmark: *-nav.html renders before <main>, *-footer.html after </main>,
+  // everything else inside <main>. Each group keeps site.json / filename order.
+  const files = sectionFiles;
+  const render = (group) => group
     .map((f) => `<!-- ${f} -->\n` + readFileSync(join(SRC, 'sections', f), 'utf8').trim())
     .join('\n\n');
+  const isNav = (f) => /-nav\.html$/.test(f);
+  const isFooter = (f) => /-footer\.html$/.test(f);
+  const header = render(files.filter(isNav));
+  const footer = render(files.filter(isFooter));
+  const sections = render(files.filter((f) => !isNav(f) && !isFooter(f)));
   const styles = list(join(SRC, 'css'), '.css').map((f) => `<link rel="stylesheet" href="css/${f}">`).join('\n    ');
   const scripts = list(join(SRC, 'js'), '.js').map((f) => `<script src="js/${f}" defer></script>`).join('\n    ');
 
   const html = readFileSync(join(SRC, 'template.html'), 'utf8')
-    .replace('<!-- @styles -->', styles)
+    .replace('<!-- @styles -->', () => styles)
     .replace('<!-- @scripts -->', () => siteScript + scripts)
-    .replace('<!-- @sections -->', sections)
+    .replace('<!-- @header -->', () => header)
+    .replace('<!-- @sections -->', () => sections)
+    .replace('<!-- @footer -->', () => footer)
     .replaceAll('{{year}}', String(new Date().getFullYear()));
   writeFileSync(join(DIST, 'index.html'), html);
   return html;

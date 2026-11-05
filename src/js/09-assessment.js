@@ -47,7 +47,7 @@
       q: function (o) { return 'How do you assess health risks before ' + o.people + ' travel or deploy?'; },
       opts: ['We don’t assess this systematically', 'Generic advice only (vaccination lists, government advisories)', 'Country-level health-risk profiles, reviewed periodically', 'Destination- and person-specific briefings, continuously updated and acted on'],
       by: { airamb: { q: 'How do you assess medical capability and health risks at the destinations you operate into?' }, insurer: { q: 'How do you track health risks and medical capability in the countries where your members are located?' } },
-      service: 'Country health surveillance & assignment briefings',
+      service: 'Country health surveillance & assignment briefings', serviceSlug: 'healthcare-intelligence',
       rec: 'Build country health-risk profiles and pre-assignment briefings so decisions are made on current intelligence, not generic advisories.'
     },
     {
@@ -55,7 +55,7 @@
       q: function (o) { return 'How well do you know the hospitals and clinics ' + o.people + ' would rely on abroad?'; },
       opts: ['We would find a facility when the need arises', 'We use a third-party list without reviewing it', 'Key locations have vetted providers with known capabilities', 'Capability-mapped network, re-assessed on a regular cycle, with escalation contacts'],
       by: { airamb: { q: 'How do you vet receiving hospitals and ground-ambulance partners at origin and destination?' } },
-      service: 'Medical & transport provider quality assessment',
+      service: 'Medical & transport provider quality assessment', serviceSlug: 'quality-assessment',
       rec: 'Map and assess the medical capability of the facilities you depend on in priority locations, and set a re-assessment cycle.'
     },
     {
@@ -63,7 +63,7 @@
       q: function () { return 'Do you have a documented medical evacuation and repatriation plan?'; },
       opts: ['No plan: we would improvise', 'Covered by a policy, but triggers and roles are unclear', 'Documented plan with decision criteria and named roles', 'Tested plan with pre-agreed triggers, funding authority and regular exercises'],
       by: { airamb: { q: 'How formalised are your mission-acceptance and patient-transfer decision protocols?', opts: ['Decided case by case, mostly verbally', 'Some written guidance, applied inconsistently', 'Documented protocols with clinical and operational criteria', 'Documented, audited protocols with clear go / no-go authority and review'] } },
-      service: 'Aeromedical & evacuation planning',
+      service: 'Aeromedical & evacuation planning', serviceSlug: 'medical-logistics',
       rec: 'Define evacuation and repatriation triggers, decision rights and funding authority in advance, then rehearse them.'
     },
     {
@@ -71,7 +71,7 @@
       q: function () { return 'How do you select and monitor air ambulance and medical escort providers?'; },
       opts: ['Whoever is available, or the lowest quote', 'Our assistance partner chooses; we don’t review it', 'Providers screened for accreditation (e.g. EURAMI, CAMTS) and insurance', 'Structured due diligence, accreditation checks, performance KPIs and periodic audits'],
       by: { airamb: { q: 'How ready is your organisation for accreditation (e.g. EURAMI, CAMTS) and client due-diligence audits?', opts: ['Not started', 'Policies exist but are not aligned to a standard', 'Aligned to a standard, with known gaps being closed', 'Accredited or audit-ready, with continuous internal review'] } },
-      service: 'Air ambulance vendor due diligence & accreditation readiness',
+      service: 'Air ambulance vendor due diligence & accreditation readiness', serviceSlug: 'aeromedical-strategy',
       recBy: { airamb: 'Run a gap analysis against recognised accreditation standards and prepare for client due-diligence audits.' },
       rec: 'Introduce structured due diligence for air ambulance and escort providers, anchored on recognised accreditation standards.'
     },
@@ -80,14 +80,14 @@
       q: function () { return 'For large events, projects or remote sites, do you have a Medical Emergency Response Plan?'; },
       opts: ['No: we rely on local emergency services', 'Only for some sites, mostly informal', 'Documented plans covering local care, transport and contacts', 'Site-specific plans, drilled, with medical resources and evacuation routes pre-arranged'],
       by: { airamb: { q: 'Do you support clients’ Medical Emergency Response Plans for events and remote sites?', opts: ['Not something we offer', 'Ad hoc, on request', 'Defined standby and response offering for key clients', 'Integrated planning with clients, including drills and pre-positioning'] } },
-      service: 'Medical Emergency Response Plans for events & remote sites',
+      service: 'Medical Emergency Response Plans for events & remote sites', serviceSlug: 'emergency-response',
       rec: 'Develop site- and event-specific Medical Emergency Response Plans covering local capability, transport routes and escalation.'
     },
     {
       id: 'crisis', domain: 'Crisis & outbreak readiness',
       q: function (o) { return 'How prepared are you if an outbreak, natural disaster or unrest affects ' + o.people + '?'; },
       opts: ['No specific playbook', 'A general crisis plan that is not health-specific', 'Health-specific playbooks for key scenarios', 'Rehearsed scenario playbooks with logistics partners pre-identified'],
-      service: 'Crisis & outbreak response logistics',
+      service: 'Crisis & outbreak response logistics', serviceSlug: 'emergency-response',
       rec: 'Write health-specific playbooks for your most likely scenarios and pre-identify the logistics partners you would activate.'
     },
     {
@@ -95,21 +95,21 @@
       q: function (o) { return 'If a ' + o.person + ' has a medical emergency at 3 a.m. local time, what happens?'; },
       opts: ['Unclear: they would call whoever they can', 'A hotline exists, but awareness and escalation are weak', '24/7 assistance with defined escalation to decision-makers', 'Medically-led 24/7 assistance, clear escalation, case tracking and family communication'],
       by: { insurer: { q: 'How robust is your 24/7 case management and escalation model?' }, airamb: { q: 'How robust is your 24/7 mission coordination and escalation model?' } },
-      service: 'Assistance model & escalation design',
+      service: 'Assistance model & escalation design', serviceSlug: 'duty-of-care',
       rec: 'Clarify who answers, who decides and who informs families at any hour, and make sure people know how to reach help.'
     },
     {
       id: 'ethics', domain: 'Data, ethics & consent',
       q: function () { return 'How do you handle medical data, consent and ethical questions in cross-border cases?'; },
       opts: ['Ad hoc, case by case', 'We follow general privacy policies', 'Documented consent and data-transfer procedures for medical cases', 'A governed framework for consent, data transfer and ethical escalation'],
-      service: 'Ethics & compliance in cross-border patient transport',
+      service: 'Ethics & compliance in cross-border patient transport', serviceSlug: 'ethics-compliance',
       rec: 'Put a clear framework around consent, cross-border medical data and ethically complex transport requests.'
     },
     {
       id: 'review', domain: 'Review & training',
       q: function () { return 'After a medical incident abroad, what happens next?'; },
       opts: ['The case is closed and we move on', 'An informal debrief when something goes badly', 'A structured post-incident review with documented actions', 'Systematic reviews feeding training, provider scorecards and plan updates'],
-      service: 'Training & post-incident review',
+      service: 'Training & post-incident review', serviceSlug: 'duty-of-care',
       rec: 'Make post-incident reviews routine, and feed the lessons into training, provider scorecards and plan updates.'
     }
   ];
@@ -263,7 +263,7 @@
         '<span class="assess-rec-num" aria-hidden="true">' + (i + 1) + '</span>' +
         '<div><h4 class="assess-rec-title">' + d.q.domain + '</h4>' +
         '<p>' + txt + '</p>' +
-        '<a class="assess-rec-service" href="#services">Pelagos service: ' + d.q.service + '</a></div>' +
+        '<a class="assess-rec-service" href="#services" data-assess-service="' + d.q.serviceSlug + '">Pelagos service: ' + d.q.service + '</a></div>' +
         '</li>';
     }).join('');
     return '<div class="assess-results" data-assess-results>' +
@@ -356,6 +356,17 @@
       return;
     }
     var on = function (sel, fn) { var el = $(sel, stage); if (el) el.addEventListener('click', fn); };
+    // Recommendation links open the matching service's detail dialog (falls back to #services)
+    Array.prototype.forEach.call(stage.querySelectorAll('[data-assess-service]'), function (a) {
+      a.addEventListener('click', function (e) {
+        var card = document.querySelector('.services-card[data-slug="' + a.getAttribute('data-assess-service') + '"]');
+        var more = card && card.querySelector('.services-card__more');
+        if (!more) return;
+        e.preventDefault();
+        card.scrollIntoView({ behavior: 'auto', block: 'center' });
+        more.click();
+      });
+    });
     on('[data-assess-discuss]', function () {
       var r = lastResult;
       document.dispatchEvent(new CustomEvent('pg:assessment-result', {

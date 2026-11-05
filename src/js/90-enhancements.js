@@ -81,7 +81,11 @@
     var k = e.key;
     if (dialog && dialog.open) { if (k === '?') { e.preventDefault(); closeDialog(); } return; }
     // Another modal (e.g. a service detail) is open: stay out of its way
-    if (doc.querySelector('dialog[open]:not(.pg-kbd), [aria-modal="true"]:not([hidden])')) return;
+    // (an aria-modal element inside a hidden wrapper, e.g. the exit-intent modal, does not count)
+    if (doc.querySelector('dialog[open]:not(.pg-kbd)')) return;
+    if (Array.prototype.some.call(doc.querySelectorAll('[aria-modal="true"]'), function (m) {
+      return !m.closest('[hidden]') && m.getClientRects().length > 0;
+    })) return;
 
     if (pendingG) {
       pendingG = false; clearTimeout(gTimer);

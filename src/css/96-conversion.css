@@ -93,7 +93,8 @@
 .conv-bar.is-visible { transform: none; visibility: visible; transition: transform 0.3s var(--ease), visibility 0s; }
 .conv-bar .btn { flex: 1 1 0; min-width: 0; padding-inline: 12px; font-size: 0.92rem; white-space: nowrap; }
 .conv-bar .btn--ghost { flex: 0 1 auto; }
-body.conv-bar-on .footer-top { bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+body.conv-bar-on .footer-top,
+body.conv-bar-on .langsw { bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
 @media (min-width: 768px) { .conv-bar { display: none; } }
 
 /* ---- Desktop floating pill ---- */
