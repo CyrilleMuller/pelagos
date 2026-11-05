@@ -1,0 +1,64 @@
+/* ==========================================================================
+   08 — Process: "How we work" stepper with scroll-drawn connecting line
+   ========================================================================== */
+.process-stepper { position: relative; --process-p: 0; --process-dot: 56px; }
+.process-steps {
+  list-style: none; margin: 0; padding: 0; position: relative; z-index: 1;
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(14px, 2vw, 26px);
+}
+.process-step { text-align: center; min-width: 0; }
+.process-step__dot {
+  display: grid; place-items: center; width: var(--process-dot); height: var(--process-dot); margin: 0 auto 18px;
+  border-radius: 50%; background: var(--c-surface); color: var(--c-muted);
+  border: 2px solid var(--c-border); box-shadow: var(--shadow-sm);
+  transition: background-color 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.process-step__dot .icon { width: 24px; height: 24px; }
+.process-step.is-reached .process-step__dot {
+  background: var(--c-primary); border-color: var(--c-primary); color: var(--c-primary-contrast); transform: scale(1.06);
+}
+.process-step__num {
+  display: block; font: 600 0.74rem/1 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--c-accent); margin-bottom: 8px;
+}
+.process-step__title { font-size: clamp(1.05rem, 1.5vw, 1.2rem); margin-bottom: 8px; }
+.process-step__text { color: var(--c-muted); font-size: 0.95rem; margin: 0; }
+
+/* Connecting line: track + fill scaled by --process-p (0..1) */
+.process-line {
+  position: absolute; z-index: 0; top: calc(var(--process-dot) / 2 - 1.5px); height: 3px;
+  left: 10%; right: 10%; border-radius: 3px; background: var(--c-border); overflow: hidden;
+}
+.process-line__fill {
+  position: absolute; inset: 0; background: linear-gradient(90deg, var(--c-primary), var(--c-accent));
+  transform-origin: left center; transform: scaleX(var(--process-p));
+}
+
+/* Vertical layout on small screens */
+@media (max-width: 820px) {
+  .process-stepper { --process-dot: 48px; }
+  .process-steps { grid-template-columns: 1fr; gap: 28px; }
+  .process-step {
+    display: grid; grid-template-columns: var(--process-dot) 1fr; column-gap: 18px; text-align: left; align-items: start;
+  }
+  .process-step__dot { grid-row: 1 / span 3; margin: 0; }
+  .process-step__num { margin-top: 4px; }
+  .process-line {
+    top: calc(var(--process-dot) / 2); bottom: calc(var(--process-dot) / 2);
+    left: calc(var(--process-dot) / 2 - 1.5px); right: auto; width: 3px; height: auto;
+  }
+  .process-line__fill {
+    background: linear-gradient(180deg, var(--c-primary), var(--c-accent));
+    transform-origin: center top; transform: scaleY(var(--process-p));
+  }
+}
+
+/* Trust line */
+.process-trust {
+  list-style: none; margin: clamp(40px, 6vw, 64px) auto 0; padding: 0;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 28px;
+}
+.process-trust li {
+  display: inline-flex; align-items: center; gap: 10px; color: var(--c-muted); font: 500 0.95rem/1.3 var(--font-sans);
+}
+.process-trust .icon { color: var(--c-accent); }
