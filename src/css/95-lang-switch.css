@@ -1,0 +1,19 @@
+/* Floating language switcher (injected by 95-lang-switch.js). Bottom-left; back-to-top lives bottom-right. */
+.langsw {
+  position: fixed; left: clamp(14px, 3vw, 28px); bottom: clamp(14px, 3vw, 28px); z-index: 89;
+  background: var(--c-surface); border: 1px solid var(--c-border); border-radius: 999px;
+  box-shadow: var(--shadow-md); padding: 3px;
+}
+.langsw-list { display: flex; gap: 2px; list-style: none; margin: 0; padding: 0; }
+.langsw-link {
+  display: inline-grid; place-items: center; min-width: 38px; min-height: 34px; padding: 0 8px;
+  border-radius: 999px; font: 600 0.76rem/1 var(--font-sans); letter-spacing: 0.06em;
+  color: var(--c-muted); text-decoration: none; transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+.langsw-link:hover { color: var(--c-accent); background: var(--c-surface-2); }
+.langsw-link[aria-current='page'] { background: var(--c-primary); color: var(--c-primary-contrast); }
+.langsw-link:focus-visible { outline-offset: 1px; }
+@media (max-width: 480px) {
+  .langsw-link { min-width: 32px; padding: 0 5px; font-size: 0.72rem; }
+}
+@media print { .langsw { display: none !important; } }
