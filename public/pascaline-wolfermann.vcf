@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Wolfermann;Pascaline;;;
+FN:Pascaline Wolfermann
+ORG:Pelagos Global
+TITLE:Global Healthcare Intelligence & Aeromedical Consultant
+EMAIL;TYPE=INTERNET,WORK:hello@pelagos.global
+URL;TYPE=LinkedIn:https://www.linkedin.com/in/pascalinewolfermann/
+ADR;TYPE=WORK:;;;;;;United States
+NOTE:Independent consultant: global healthcare intelligence\, aeromedical & medical logistics strategy\, duty of care & travel risk. (Email is a placeholder - update before launch.)
+END:VCARD
