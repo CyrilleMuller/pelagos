@@ -37,8 +37,14 @@
     <div class="hero-visual">
       <div class="hero-frame">
         <div class="hero-frame-ring" aria-hidden="true"></div>
-        <img class="hero-photo" src="images/pascaline.jpg" width="800" height="800"
-             alt="Portrait of Pascaline Wolfermann" fetchpriority="high" decoding="async" />
+        <picture class="hero-picture">
+          <source type="image/webp" srcset="images/pascaline-400.webp 400w, images/pascaline-800.webp 800w"
+                  sizes="(max-width: 480px) 78vw, 424px" />
+          <img class="hero-photo" src="images/pascaline.jpg"
+               srcset="images/pascaline-400.jpg 400w, images/pascaline.jpg 800w"
+               sizes="(max-width: 480px) 78vw, 424px" width="800" height="800"
+               alt="Portrait of Pascaline Wolfermann" fetchpriority="high" />
+        </picture>
       </div>
       <ul class="hero-badges" role="list" aria-label="Credentials">
         <li class="hero-badge hero-badge--1">

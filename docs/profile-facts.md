@@ -61,4 +61,4 @@ health-tech startups entering the global assistance market.
 
 ## Brand
 - Brand: **Pelagos Global** ("pelagos" = open sea, Greek). Tone: calm, expert, warm, global, trustworthy.
-- Photo: `public/images/pascaline.jpg` (square 800×800 portrait). Background: `public/images/horizon.jpg`.
+- Photo: `public/images/pascaline.jpg` (square 800×800 portrait).
