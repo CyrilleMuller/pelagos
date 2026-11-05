@@ -36,3 +36,24 @@ by `.github/workflows/static.yml`). Preview: `node build.mjs --serve` → http:/
 
 Section `id`s (used by the nav): `top` (hero), `about`, `services`, `experience`, `expertise`, `insights`,
 `process`, `assessment`, `faq`, `contact`.
+
+## Content & toggles
+
+`content/site.json` holds site-wide settings. You can edit it by hand or through the admin CMS (`public/admin/`). It is optional: if it is missing, the build includes every section in filename order and uses the defaults in `src/js/00-core.js`.
+
+```json
+{
+  "config":   { "name": "…", "email": "…", "bookingUrl": "#contact", "formEndpoint": "" },
+  "features": { "darkMode": true, "langSwitcher": true, "stickyCta": true, "exitIntent": true,
+                "newsletter": true, "keyboardShortcuts": true, "scrollProgress": true,
+                "suggestEdits": true, "commandPalette": true },
+  "sections": [ { "file": "01-nav.html", "enabled": true } ]
+}
+```
+
+- **`config`**: contact details and brand strings. These values override the defaults in `PG.config`.
+- **`features`**: on/off switches, read in JS with `PG.feature('name')`. Each disabled feature adds the class `no-feature-<name>` to `<html>`, so CSS can hide related elements. With `darkMode: false`, the theme toggle is hidden and the site stays in light theme. `suggestEdits` and `commandPalette` are reserved for features that use the same check.
+- **`sections`**: the order of sections on the page. The build skips entries with `enabled: false`. Any `src/sections/*.html` file that is not in the list is added at the end, enabled. The newsletter has no JS switch: turn it off by disabling `10d-newsletter.html`. The CSS and JS of a disabled section still load, which does no harm.
+- **Preview override**: add `?features=-exitIntent,+newsletter` to the URL to turn features off (`-`) or on (`+`) for that page load only. Nothing is saved.
+
+The build puts `config` and `features` inline as `window.PG_SITE`, and writes a copy of the whole file to `dist/site.json`.

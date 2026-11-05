@@ -76,6 +76,7 @@
   var pendingG = false;
   var gTimer;
   doc.addEventListener('keydown', function (e) {
+    if (PG.feature && !PG.feature('keyboardShortcuts')) return;
     if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey || isTyping(e.target)) return;
     var k = e.key;
     if (dialog && dialog.open) { if (k === '?') { e.preventDefault(); closeDialog(); } return; }

@@ -206,8 +206,9 @@
 
   function init() {
     initNewsletter();
-    initStickyCtas();
-    initExitIntent();
+    var on = function (f) { return !PG.feature || PG.feature(f); };
+    if (on('stickyCta')) initStickyCtas();
+    if (on('exitIntent')) initExitIntent();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

@@ -1,0 +1,102 @@
+{
+  "config": {
+    "name": "Pascaline Wolfermann",
+    "brand": "Pelagos Global",
+    "title": "Global Healthcare Intelligence & Aeromedical Consultant",
+    "email": "hello@pelagos.global",
+    "linkedin": "https://www.linkedin.com/in/pascalinewolfermann/",
+    "location": "United States · working worldwide",
+    "timezone": "America/New_York",
+    "bookingUrl": "#contact",
+    "formEndpoint": ""
+  },
+  "features": {
+    "darkMode": true,
+    "langSwitcher": true,
+    "stickyCta": true,
+    "exitIntent": true,
+    "newsletter": true,
+    "keyboardShortcuts": true,
+    "scrollProgress": true,
+    "suggestEdits": true,
+    "commandPalette": true
+  },
+  "sections": [
+    {
+      "file": "01-nav.html",
+      "enabled": true
+    },
+    {
+      "file": "02-hero.html",
+      "enabled": true
+    },
+    {
+      "file": "03-about.html",
+      "enabled": true
+    },
+    {
+      "file": "03b-whynow.html",
+      "enabled": true
+    },
+    {
+      "file": "04-services.html",
+      "enabled": true
+    },
+    {
+      "file": "05-experience.html",
+      "enabled": true
+    },
+    {
+      "file": "06-expertise.html",
+      "enabled": true
+    },
+    {
+      "file": "06b-planner.html",
+      "enabled": true
+    },
+    {
+      "file": "06c-intel.html",
+      "enabled": true
+    },
+    {
+      "file": "07-insights.html",
+      "enabled": true
+    },
+    {
+      "file": "07a-engagements.html",
+      "enabled": true
+    },
+    {
+      "file": "08-process.html",
+      "enabled": true
+    },
+    {
+      "file": "09-assessment.html",
+      "enabled": true
+    },
+    {
+      "file": "10-faq.html",
+      "enabled": true
+    },
+    {
+      "file": "10b-resources.html",
+      "enabled": true
+    },
+    {
+      "file": "10c-kits.html",
+      "enabled": true
+    },
+    {
+      "file": "10d-newsletter.html",
+      "enabled": true
+    },
+    {
+      "file": "11-contact.html",
+      "enabled": true
+    },
+    {
+      "file": "99-footer.html",
+      "enabled": true
+    }
+  ]
+}
