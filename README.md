@@ -53,7 +53,7 @@ docs/profile-facts.md     content source of truth — do not invent facts
   at the top of `src/js/00-core.js`. It is the single source of truth used by every section.
 - **Page title, description, social preview text, structured data**: edit the `<head>` of `src/template.html`.
 - **Colors & typography**: edit the tokens in `src/css/00-tokens.css` (both light and dark blocks).
-- **Photos**: replace `public/images/pascaline.jpg` (square, ~800×800) or `public/images/horizon.jpg`.
+- **Photos**: replace `public/images/pascaline.jpg` (square, ~800×800).
   If the portrait changes, regenerate `public/images/og-image.png` (1200×630) too.
 - Preview with `node build.mjs --serve`, then open a pull request; CI must pass before merging.
 

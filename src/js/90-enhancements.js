@@ -76,11 +76,16 @@
   var pendingG = false;
   var gTimer;
   doc.addEventListener('keydown', function (e) {
+    if (PG.feature && !PG.feature('keyboardShortcuts')) return;
     if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey || isTyping(e.target)) return;
     var k = e.key;
     if (dialog && dialog.open) { if (k === '?') { e.preventDefault(); closeDialog(); } return; }
     // Another modal (e.g. a service detail) is open: stay out of its way
-    if (doc.querySelector('dialog[open]:not(.pg-kbd), [aria-modal="true"]:not([hidden])')) return;
+    var otherModalOpen = doc.querySelector('dialog[open]:not(.pg-kbd)') ||
+      Array.prototype.some.call(doc.querySelectorAll('[aria-modal="true"]:not(dialog)'), function (el) {
+        return !el.closest('[hidden]') && el.getClientRects().length > 0;
+      });
+    if (otherModalOpen) return;
 
     if (pendingG) {
       pendingG = false; clearTimeout(gTimer);

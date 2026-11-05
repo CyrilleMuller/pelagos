@@ -1,0 +1,36 @@
+<section id="newsletter" class="section newsletter" aria-labelledby="newsletter-title">
+  <div class="container">
+    <div class="newsletter-card card reveal">
+      <div class="newsletter-intro">
+        <span class="eyebrow">Occasional email digest</span>
+        <h2 id="newsletter-title">Global Health Intelligence Notes</h2>
+        <p class="lead">Occasional, practical notes from Pascaline on global healthcare access, aeromedical transport and duty of care. No fixed schedule, no spam.</p>
+      </div>
+      <form class="newsletter-form" id="newsletter-form" novalidate aria-describedby="newsletter-privacy">
+        <div class="newsletter-field">
+          <label for="newsletter-email">Work email <span aria-hidden="true">*</span></label>
+          <div class="newsletter-row">
+            <input id="newsletter-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="160" aria-describedby="newsletter-err" placeholder="you@organization.com" />
+            <button type="submit" class="btn btn--accent newsletter-submit">Subscribe</button>
+          </div>
+          <p class="newsletter-err" id="newsletter-err" aria-live="polite"></p>
+        </div>
+        <fieldset class="newsletter-topics">
+          <legend>Topics you care about <span class="newsletter-optional">(optional)</span></legend>
+          <label class="newsletter-check"><input type="checkbox" name="topics" value="Health intelligence &amp; country risk" /> <span>Health intelligence &amp; country risk</span></label>
+          <label class="newsletter-check"><input type="checkbox" name="topics" value="Aeromedical transport &amp; accreditation" /> <span>Aeromedical transport &amp; accreditation</span></label>
+          <label class="newsletter-check"><input type="checkbox" name="topics" value="Duty of care &amp; travel risk" /> <span>Duty of care &amp; travel risk</span></label>
+          <label class="newsletter-check"><input type="checkbox" name="topics" value="Ethics in cross-border patient transport" /> <span>Ethics in cross-border patient transport</span></label>
+        </fieldset>
+        <p class="newsletter-privacy" id="newsletter-privacy">Your email is used only to send these notes. It is never shared or sold, and you can unsubscribe at any time with a one-line reply.</p>
+      </form>
+      <div class="newsletter-success" id="newsletter-success" role="status" tabindex="-1" hidden>
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+        <div>
+          <p class="newsletter-success-title">Thank you, you are on the list.</p>
+          <p class="newsletter-success-text">If your email app opened, just press send to confirm. Want to talk sooner? <a href="#contact">Get in touch</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

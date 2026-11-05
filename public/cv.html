@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CV / Résumé — Pascaline Wolfermann | Pelagos Global</title>
+    <meta name="description" content="Résumé of Pascaline Wolfermann: 30+ years in international health assistance, healthcare intelligence and aeromedical logistics. Former Director, Global Solutions Healthcare Intelligence at UnitedHealthcare Global; Chair, EURAMI Ethics Committee." />
+    <link rel="canonical" href="https://cyrillemuller.github.io/pelagos/cv.html" />
+    <meta name="author" content="Pascaline Wolfermann" />
+    <meta name="theme-color" content="#0b3a5c" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Pelagos Global" />
+    <meta property="og:url" content="https://cyrillemuller.github.io/pelagos/cv.html" />
+    <meta property="og:title" content="Pascaline Wolfermann — CV / Résumé" />
+    <meta property="og:description" content="Global healthcare intelligence, aeromedical transport and duty-of-care expertise. Former Director, Global Solutions Healthcare Intelligence at UnitedHealthcare Global." />
+    <meta property="og:image" content="https://cyrillemuller.github.io/pelagos/images/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('pg-theme');
+          if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="stylesheet" href="css/00-tokens.css" />
+    <style>
+      body { font-size: 1rem; line-height: 1.55; }
+      .cv-bar {
+        max-width: 210mm; margin: 0 auto; padding: 20px 16px 0; display: flex; flex-wrap: wrap;
+        gap: 12px; align-items: center; justify-content: space-between;
+      }
+      .cv-back { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; text-decoration: none; }
+      .cv-page {
+        max-width: 210mm; margin: 16px auto 48px; background: var(--c-surface); color: var(--c-text);
+        border: 1px solid var(--c-border); border-radius: var(--radius); box-shadow: var(--shadow-md);
+        padding: clamp(20px, 5vw, 15mm);
+      }
+      .cv-head { display: grid; grid-template-columns: auto 1fr; gap: clamp(14px, 3vw, 24px); align-items: center;
+        padding-bottom: 18px; border-bottom: 2px solid var(--c-accent); }
+      .cv-photo { width: clamp(76px, 16vw, 108px); height: clamp(76px, 16vw, 108px); border-radius: 50%; object-fit: cover;
+        border: 3px solid var(--c-accent-soft); }
+      .cv-name { font-size: clamp(1.7rem, 4.6vw, 2.4rem); margin: 0 0 4px; letter-spacing: -0.01em; }
+      .cv-role { margin: 0 0 8px; color: var(--c-accent); font-weight: 600; font-size: 1.02rem; }
+      .cv-contact { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px;
+        font-size: 0.9rem; color: var(--c-muted); }
+      .cv-contact a { color: inherit; overflow-wrap: anywhere; }
+      .cv-grid { display: grid; grid-template-columns: 1fr; gap: 0 28px; margin-top: 18px; }
+      @media (min-width: 720px) { .cv-grid { grid-template-columns: minmax(0, 1fr) 62mm; } }
+      .cv-section { margin-bottom: 18px; }
+      .cv-h { font: 700 0.78rem/1 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-primary);
+        margin: 0 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--c-border); }
+      .cv-summary { margin: 0; }
+      .cv-job { margin-bottom: 14px; break-inside: avoid; }
+      .cv-job-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; align-items: baseline; }
+      .cv-job h3 { font: 600 1rem/1.3 var(--font-sans); margin: 0; }
+      .cv-date { font-size: 0.85rem; color: var(--c-muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+      .cv-org { margin: 1px 0 4px; font-size: 0.92rem; color: var(--c-accent); font-weight: 500; }
+      .cv-job ul, .cv-list { margin: 0; padding-left: 1.1em; font-size: 0.92rem; }
+      .cv-job li, .cv-list li { margin-bottom: 2px; }
+      .cv-side p { font-size: 0.92rem; margin: 0 0 8px; }
+      .cv-tags { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+      .cv-tags li { font-size: 0.82rem; padding: 4px 10px; border-radius: 999px; background: var(--c-accent-soft); }
+      .cv-muted { color: var(--c-muted); font-size: 0.86rem; }
+      .cv-note { max-width: 210mm; margin: -32px auto 40px; padding: 0 16px; font-size: 0.85rem; color: var(--c-muted); }
+
+      @page { size: A4; margin: 14mm 14mm 16mm; }
+      @media print {
+        :root, [data-theme] {
+          --c-bg: #fff; --c-surface: #fff; --c-surface-2: #fff; --c-text: #111b26; --c-muted: #4a5a6a;
+          --c-border: #cfd8e0; --c-primary: #0b3a5c; --c-accent: #0e6b80; --c-accent-soft: #e6f2f2;
+          color-scheme: light;
+        }
+        html, body { background: #fff !important; }
+        body { font-size: 9.6pt; line-height: 1.42; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .cv-bar, .cv-note { display: none !important; }
+        .cv-page { max-width: none; margin: 0; padding: 0; border: 0; border-radius: 0; box-shadow: none; }
+        .cv-grid { grid-template-columns: minmax(0, 1fr) 58mm; }
+        .cv-photo { width: 25mm; height: 25mm; }
+        .cv-name { font-size: 21pt; }
+        a { color: inherit; text-decoration: none; }
+        .cv-job, .cv-side .cv-section, .cv-head { break-inside: avoid; }
+        .cv-h { break-after: avoid; }
+        .cv-tags { gap: 4px; }
+        .cv-tags li { font-size: 7.8pt; padding: 2px 7px; }
+        .cv-job ul, .cv-list, .cv-side p { font-size: 9pt; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cv-bar">
+      <a class="cv-back" href="./">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
+        Back to main site
+      </a>
+      <button type="button" class="btn btn--primary" id="cv-print">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" /><path d="M6 14h12v7H6z" /></svg>
+        Print / Save as PDF
+      </button>
+    </div>
+
+    <main class="cv-page" id="main">
+      <header class="cv-head">
+        <picture style="display:block;line-height:0"><source type="image/webp" srcset="images/pascaline-400.webp 400w, images/pascaline-800.webp 800w" sizes="108px" /><img class="cv-photo" src="images/pascaline-400.jpg" srcset="images/pascaline-400.jpg 400w, images/pascaline.jpg 800w" sizes="108px" width="800" height="800" alt="Portrait of Pascaline Wolfermann" decoding="async" /></picture>
+        <div>
+          <h1 class="cv-name">Pascaline Wolfermann</h1>
+          <p class="cv-role">Global Healthcare Intelligence &amp; Aeromedical Consultant · Pelagos Global</p>
+          <ul class="cv-contact">
+            <!-- Placeholder address: replace with the real inbox before launch -->
+            <li><a href="mailto:hello@pelagos.global">hello@pelagos.global</a></li>
+            <li><a href="https://www.linkedin.com/in/pascalinewolfermann/" rel="noopener">linkedin.com/in/pascalinewolfermann</a></li>
+            <li>United States · working globally</li>
+          </ul>
+        </div>
+      </header>
+
+      <div class="cv-grid">
+        <div class="cv-mainCol">
+          <section class="cv-section" aria-labelledby="cv-profile">
+            <h2 class="cv-h" id="cv-profile">Profile</h2>
+            <p class="cv-summary">International health assistance leader with 30+ years in healthcare intelligence, medical
+              logistics and aeromedical transport. For nine years Director, Global Solutions Healthcare Intelligence at
+              UnitedHealthcare Global, leading the global medical and transport provider quality assessment program and
+              country health surveillance for globally mobile customers. Chair of the EURAMI Ethics Committee. Now
+              independent, helping insurers, assistance companies, employers, universities and NGOs build safer, better
+              informed duty-of-care programs.</p>
+          </section>
+
+          <section class="cv-section" aria-labelledby="cv-exp">
+            <h2 class="cv-h" id="cv-exp">Experience</h2>
+
+            <article class="cv-job">
+              <div class="cv-job-top"><h3>Founder &amp; Independent Consultant</h3><span class="cv-date">2025 – Present</span></div>
+              <p class="cv-org">Pelagos Global</p>
+              <ul>
+                <li>Independent consulting in global healthcare intelligence, aeromedical and medical-logistics strategy, and duty of care.</li>
+              </ul>
+            </article>
+
+            <article class="cv-job">
+              <div class="cv-job-top"><h3>Director, Global Solutions Healthcare Intelligence</h3><span class="cv-date">Apr 2016 – May 2025</span></div>
+              <p class="cv-org">UnitedHealthcare Global · United States (remote)</p>
+              <ul>
+                <li>Led the global medical and transport providers quality assessment program.</li>
+                <li>Directed global country health surveillance to educate globally mobile customers on the local healthcare landscape, access and quality at their new assignment.</li>
+                <li>Led a team developing customized health intelligence reports, including Medical Emergency Response Plans for large events and remote locations.</li>
+              </ul>
+            </article>
+
+            <article class="cv-job">
+              <div class="cv-job-top"><h3>Director, Health, Aero-Medical &amp; Logistics Intelligence, Global Assistance</h3><span class="cv-date">May 2012 – Apr 2016</span></div>
+              <p class="cv-org">UnitedHealth Group</p>
+              <ul>
+                <li>Directed health, aeromedical and logistics intelligence supporting global assistance operations.</li>
+              </ul>
+            </article>
+
+            <article class="cv-job">
+              <div class="cv-job-top"><h3>Resource Development Manager</h3><span class="cv-date">Feb 2003 – May 2012</span></div>
+              <p class="cv-org">FrontierMEDEX (acquired by UnitedHealthcare)</p>
+              <ul>
+                <li>Developed the provider resources supporting international travel assistance and crisis support.</li>
+              </ul>
+            </article>
+
+            <article class="cv-job">
+              <div class="cv-job-top"><h3>International Services / Product Management</h3><span class="cv-date">2001 – 2003</span></div>
+              <p class="cv-org">GlobalCare, Inc. (now Zelis)</p>
+            </article>
+
+            <article class="cv-job">
+              <div class="cv-job-top"><h3>Administrator / Logistician</h3><span class="cv-date">1993 – 1995</span></div>
+              <p class="cv-org">Médecins du Monde · Iquitos, Peru</p>
+              <ul>
+                <li>NGO emergency medical assistance and healthcare logistics during the cholera outbreak in the Amazon basin.</li>
+              </ul>
+            </article>
+          </section>
+        </div>
+
+        <aside class="cv-side">
+          <section class="cv-section" aria-labelledby="cv-boards">
+            <h2 class="cv-h" id="cv-boards">Board &amp; committee roles</h2>
+            <p><strong>Chair, Ethics Committee</strong><br />European Aero-Medical Institute (EURAMI) e.V.<br /><span class="cv-muted">Jul 2024 – Present</span></p>
+            <p><strong>Board Member</strong><br />EURAMI<br /><span class="cv-muted">Nov 2012 – Nov 2018</span></p>
+          </section>
+
+          <section class="cv-section" aria-labelledby="cv-pub">
+            <h2 class="cv-h" id="cv-pub">Publication</h2>
+            <p>Co-author, “Don’t Pay the Ferryman: International Aeromedical Transport of Patients to or From Treatments
+              Prohibited in Their Place of Residence.” <em>Air Medical Journal</em>, 2025.
+              <a href="https://www.sciencedirect.com/science/article/pii/S1067991X25003372" rel="noopener">ScienceDirect</a></p>
+          </section>
+
+          <section class="cv-section" aria-labelledby="cv-edu">
+            <h2 class="cv-h" id="cv-edu">Education</h2>
+            <p><strong>Université Paris 1 Panthéon-Sorbonne</strong><br />International relations &amp; languages</p>
+          </section>
+
+          <section class="cv-section" aria-labelledby="cv-skills">
+            <h2 class="cv-h" id="cv-skills">Core skills</h2>
+            <ul class="cv-tags">
+              <li>Healthcare intelligence</li>
+              <li>Provider quality assessment</li>
+              <li>Country health surveillance</li>
+              <li>Aeromedical transport</li>
+              <li>Medical logistics</li>
+              <li>Medical Emergency Response Plans</li>
+              <li>Duty of care</li>
+              <li>Travel risk management</li>
+              <li>Ethics in patient transport</li>
+              <li>Resource development</li>
+              <li>Business travel</li>
+              <li>Geopolitics</li>
+            </ul>
+          </section>
+
+          <section class="cv-section" aria-labelledby="cv-lang">
+            <h2 class="cv-h" id="cv-lang">Languages</h2>
+            <!-- VERIFY before launch: languages inferred from Sorbonne studies + Latin America career (see docs/profile-facts.md) -->
+            <ul class="cv-list">
+              <li>English</li>
+              <li>French</li>
+              <li>Spanish</li>
+            </ul>
+          </section>
+        </aside>
+      </div>
+    </main>
+    <p class="cv-note">Tip: in the print dialog choose “Save as PDF”, A4, and enable background graphics for best results.</p>
+
+    <script>
+      (function () {
+        'use strict';
+        var b = document.getElementById('cv-print');
+        if (b) b.addEventListener('click', function () { window.print(); });
+      })();
+    </script>
+  </body>
+</html>

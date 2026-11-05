@@ -3,9 +3,10 @@
   'use strict';
   var PG = (window.PG = window.PG || {});
 
-  // ---- Site config: single source of truth for contact details ----
-  // TODO(Pascaline): replace placeholder contact details before launch.
-  PG.config = {
+  // ---- Site config: defaults below; content/site.json overrides them (build injects window.PG_SITE) ----
+  // TODO(Pascaline): replace placeholder contact details before launch (edit content/site.json).
+  var SITE = window.PG_SITE || {};
+  PG.config = Object.assign({
     name: 'Pascaline Wolfermann',
     brand: 'Pelagos Global',
     title: 'Global Healthcare Intelligence & Aeromedical Consultant',
@@ -15,7 +16,27 @@
     timezone: 'America/New_York',
     bookingUrl: '#contact',
     formEndpoint: '' // e.g. https://formspree.io/f/xxxx — empty = mailto fallback
-  };
+  }, SITE.config);
+
+  // ---- Feature toggles: content/site.json "features"; preview override ?features=-exitIntent,+newsletter ----
+  PG.features = Object.assign({
+    darkMode: true, langSwitcher: true, stickyCta: true, exitIntent: true, newsletter: true,
+    keyboardShortcuts: true, scrollProgress: true, suggestEdits: true, commandPalette: true
+  }, SITE.features);
+  try {
+    var fq = new URLSearchParams(location.search).get('features');
+    if (fq) fq.split(',').forEach(function (t) {
+      t = t.trim(); if (!t) return;
+      var on = t.charAt(0) !== '-';
+      PG.features[t.replace(/^[+-]/, '')] = on;
+    });
+  } catch (e) { /* URLSearchParams unavailable */ }
+  /** PG.feature('exitIntent') -> boolean (unknown names default to true). */
+  PG.feature = function (name) { return PG.features[name] !== false; };
+  Object.keys(PG.features).forEach(function (k) {
+    if (!PG.feature(k)) document.documentElement.classList.add('no-feature-' + k);
+  });
+  if (!PG.feature('darkMode')) document.documentElement.setAttribute('data-theme', 'light');
 
   PG.$ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
   PG.$$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };

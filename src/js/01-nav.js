@@ -7,12 +7,17 @@
   function init() {
     var nav = $('#site-nav');
     if (!nav) return;
+    var feat = function (f) { return !PG.feature || PG.feature(f); };
     var bar = $('.nav-progress-bar');
+    if (bar && !feat('scrollProgress')) { (bar.parentNode || bar).style.display = 'none'; bar = null; }
     var toggle = $('.nav-toggle', nav);
     var menu = $('#nav-menu');
     var themeBtn = $('.nav-theme', nav);
+    if (themeBtn && !feat('darkMode')) { themeBtn.style.display = 'none'; themeBtn = null; }
     var topBtn = $('.footer-top');
-    var links = $$('.nav-link', nav);
+    var links = $$('a.nav-link', nav);
+    var dropdown = $('.nav-dropdown', nav);
+    var dropBtn = dropdown && $('.nav-dropdown-btn', dropdown);
     var mq = window.matchMedia('(max-width: 1080px)');
 
     // ---- Scroll: progress, shadow, back-to-top ----
@@ -52,14 +57,19 @@
         a.classList.toggle('is-active', on);
         if (on) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
       });
+      if (dropBtn) dropBtn.classList.toggle('is-active', !!(dropdown.querySelector('a.is-active')));
     }
+    // Document order (nav order may differ, e.g. Tools sub-links)
+    var order = Object.keys(byId).sort(function (a, b) {
+      return byId[a].el.compareDocumentPosition(byId[b].el) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
+    });
     if ('IntersectionObserver' in window) {
       var visible = {};
       var spy = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
         // Pick the last section (in document order) that is within the active band
         var current = null;
-        Object.keys(byId).forEach(function (id) { if (visible[id]) current = id; });
+        order.forEach(function (id) { if (visible[id]) current = id; });
         var heroVisible = visible.top;
         if (current) setActive(current);
         else if (heroVisible) setActive('');
@@ -67,6 +77,25 @@
       Object.keys(byId).forEach(function (id) { spy.observe(byId[id].el); });
       var hero = document.getElementById('top');
       if (hero) spy.observe(hero);
+    }
+
+    // ---- Tools dropdown (disclosure button + list) ----
+    function setDrop(open, focusBtn) {
+      if (!dropdown) return;
+      dropdown.classList.toggle('is-open', open);
+      dropBtn.setAttribute('aria-expanded', String(open));
+      if (!open && focusBtn) dropBtn.focus();
+    }
+    if (dropdown) {
+      dropBtn.addEventListener('click', function () { setDrop(!dropdown.classList.contains('is-open')); });
+      dropdown.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && dropdown.classList.contains('is-open')) { e.preventDefault(); e.stopPropagation(); setDrop(false, true); }
+      });
+      dropdown.addEventListener('click', function (e) { if (e.target.closest('a')) setDrop(false); });
+      dropdown.addEventListener('focusout', function (e) {
+        if (e.relatedTarget && !dropdown.contains(e.relatedTarget)) setDrop(false);
+      });
+      document.addEventListener('click', function (e) { if (!dropdown.contains(e.target)) setDrop(false); });
     }
 
     // ---- Mobile menu ----
@@ -81,6 +110,7 @@
     function closeMenu(returnFocus) {
       if (!isOpen()) return;
       nav.classList.remove('is-open');
+      setDrop(false);
       toggle.setAttribute('aria-expanded', 'false');
       toggle.setAttribute('aria-label', 'Open menu');
       if (returnFocus) toggle.focus();
@@ -114,6 +144,7 @@
     }
     /** Toggle (or set) the theme; persists and notifies listeners via 'pg:themechange'. */
     PG.toggleTheme = function (theme) {
+      if (!feat('darkMode')) return 'light';
       var next = theme === 'light' || theme === 'dark' ? theme
         : (root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
       root.setAttribute('data-theme', next);

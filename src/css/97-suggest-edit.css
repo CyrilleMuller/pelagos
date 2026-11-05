@@ -1,0 +1,37 @@
+/* Suggest-edit mode (only active via ?suggest / Shift+E / pg-suggest). */
+.se-on .se-hover { outline: 2px dashed var(--c-accent); outline-offset: 3px; cursor: text; border-radius: 4px; }
+.se-bar {
+  position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 3000;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center;
+  max-width: calc(100vw - 32px); box-sizing: border-box;
+  background: var(--c-primary); color: var(--c-primary-contrast); padding: 10px 14px 10px 16px;
+  border-radius: 999px; box-shadow: var(--shadow-lg); font: 500 .92rem var(--font-sans, system-ui, sans-serif);
+}
+.se-bar-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c-highlight); }
+.se-bar-link { color: inherit; opacity: .85; }
+.se-bar-exit {
+  font: inherit; cursor: pointer; border: 1px solid currentColor; background: transparent; color: inherit;
+  border-radius: 999px; padding: 4px 12px;
+}
+.se-bar-exit:focus-visible, .se-bar-link:focus-visible { outline: 2px solid var(--c-highlight); outline-offset: 2px; }
+.se-pop {
+  position: fixed; z-index: 3001; width: min(380px, calc(100vw - 16px)); box-sizing: border-box;
+  background: var(--c-surface); color: var(--c-text); border: 1px solid var(--c-border); border-radius: 14px;
+  box-shadow: var(--shadow-lg); padding: 16px; font-family: var(--font-sans, system-ui, sans-serif);
+}
+.se-pop-h { font-size: 1rem; margin: 0 0 10px; color: var(--c-primary); }
+.se-pop-area { color: var(--c-muted); font-weight: 400; }
+.se-pop-label, .se-pop-field > span { font-size: .8rem; font-weight: 600; color: var(--c-muted); margin: 0 0 4px; display: block; }
+.se-pop-cur {
+  margin: 0 0 12px; padding: 8px 10px; background: var(--c-surface-2); border-left: 3px solid var(--c-accent);
+  border-radius: 6px; font-size: .88rem; max-height: 90px; overflow: auto;
+}
+.se-pop-field { display: block; margin-bottom: 10px; }
+.se-pop-field textarea, .se-pop-field input {
+  width: 100%; box-sizing: border-box; font: inherit; font-size: .92rem; color: var(--c-text); background: var(--c-bg);
+  border: 1px solid var(--c-border); border-radius: 8px; padding: 8px 10px; resize: vertical;
+}
+.se-pop-field :focus-visible { outline: 2px solid var(--c-accent); outline-offset: 1px; }
+.se-pop-err { color: var(--c-danger); font-size: .85rem; margin: 0 0 8px; }
+.se-pop-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+@media print { .se-bar, .se-pop { display: none !important; } .se-on .se-hover { outline: none; } }

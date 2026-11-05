@@ -154,42 +154,124 @@
     function clearDraft() { try { localStorage.removeItem(DRAFT_KEY); } catch (e) { /* ignore */ } }
 
     /* ---------- Service preselect ---------- */
-    function norm(s) { return String(s || '').toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, ' ').trim(); }
-    function selectService(query, bySlug) {
-      if (!query) return false;
-      var q = norm(query);
+    // Events/links use different vocabularies (services cards, assessment, future sections), so we match
+    // by: 1) alias slug map, 2) exact slug/label, 3) weighted word overlap in both directions.
+    var SLUG_ALIASES = {
+      'healthcare-intelligence': 'global-healthcare-intelligence',
+      'country-health-surveillance': 'global-healthcare-intelligence',
+      'health-intelligence': 'global-healthcare-intelligence',
+      'quality-assessment': 'provider-transport-quality-assessment',
+      'provider-quality-assessment': 'provider-transport-quality-assessment',
+      'aeromedical-strategy': 'aeromedical-medical-escort-strategy',
+      'aeromedical': 'aeromedical-medical-escort-strategy',
+      'medical-logistics': 'medical-logistics-repatriation',
+      'repatriation': 'medical-logistics-repatriation',
+      'emergency-response': 'medical-emergency-response-plans',
+      'emergency-response-plans': 'medical-emergency-response-plans',
+      'merp': 'medical-emergency-response-plans',
+      'duty-of-care': 'duty-of-care-travel-risk',
+      'travel-risk': 'duty-of-care-travel-risk',
+      'ethics': 'ethics-compliance',
+      'crisis-response': 'crisis-outbreak-response',
+      'outbreak-response': 'crisis-outbreak-response',
+      'provider-networks': 'provider-network-development',
+      'provider-network': 'provider-network-development',
+      'fractional-leadership': 'speaking-advisory-board',
+      'advisory-board': 'speaking-advisory-board',
+      'speaking': 'speaking-advisory-board'
+    };
+    // Engagement tiers are not services: they prefill a note (and budget for retainers) instead.
+    var ENGAGEMENTS = {
+      'expert-call': { label: 'Advisory hour / Expert call' },
+      'project': { label: 'Project engagement' },
+      'retainer': { label: 'Retainer / Fractional Director', budget: 'Retainer / ongoing' }
+    };
+    var STOP = { and: 1, the: 1, of: 1, for: 1, in: 1, a: 1, an: 1, to: 1, with: 1, program: 1, programs: 1, service: 1, services: 1 };
+    var WEAK = { medical: 1, health: 1, plan: 1, planning: 1, development: 1 };
+    function norm(s) { return String(s || '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, ' ').trim(); }
+    function slugify(s) { return norm(s).replace(/ /g, '-'); }
+    function words(s) {
+      return norm(s).split(' ').filter(function (w) { return w && !STOP[w]; })
+        .map(function (w) { return w.length > 4 && /s$/.test(w) && !/ss$/.test(w) ? w.slice(0, -1) : w; });
+    }
+    function findOption(query, exactOnly) {
       var opts = Array.prototype.slice.call(serviceSel.options, 1);
-      var match = null;
-      opts.some(function (o) {
-        var slug = norm(o.getAttribute('data-slug'));
-        var label = norm(o.textContent);
-        if (slug === q || label === q) { match = o; return true; }
-        return false;
-      });
-      if (!match) {
-        opts.some(function (o) {
-          var label = norm(o.textContent);
-          if (label.indexOf(q) !== -1 || (!bySlug && q.indexOf(label) !== -1)) { match = o; return true; }
-          return false;
+      var slug = slugify(query);
+      if (SLUG_ALIASES[slug]) slug = SLUG_ALIASES[slug];
+      var q = norm(query);
+      var exact = opts.filter(function (o) {
+        return o.getAttribute('data-slug') === slug || norm(o.textContent) === q;
+      })[0];
+      if (exact || exactOnly) return exact || null;
+      var qw = words(query);
+      if (!qw.length) return null;
+      var best = null, bestScore = 0;
+      opts.forEach(function (o) {
+        if (o.getAttribute('data-slug') === 'other') return;
+        var ow = words(o.textContent + ' ' + (o.getAttribute('data-slug') || '').replace(/-/g, ' '));
+        var seen = {}, score = 0, strong = 0;
+        qw.forEach(function (w) {
+          if (seen[w] || ow.indexOf(w) === -1) return;
+          seen[w] = 1;
+          score += WEAK[w] ? 0.5 : 1;
+          if (!WEAK[w]) strong++;
         });
-      }
-      if (!match) return false;
-      serviceSel.value = match.value;
+        if (!strong) return;
+        // Coverage in both directions breaks ties (query in option, option in query)
+        var uniq = ow.filter(function (w, i) { return ow.indexOf(w) === i; }).length;
+        score += 0.25 * (Object.keys(seen).length / qw.length) + 0.25 * (Object.keys(seen).length / uniq);
+        if (score > bestScore) { bestScore = score; best = o; }
+      });
+      return best;
+    }
+    function applyEngagement(key) {
+      var eng = ENGAGEMENTS[slugify(key)];
+      if (!eng) return false;
+      var line = 'Engagement model of interest: ' + eng.label + '\n';
+      msg.value = (line + msg.value.replace(/^Engagement model of interest: .*\n/m, '')).slice(0, MAX);
+      updateCount();
+      var budget = form.elements.budget;
+      if (eng.budget && budget && !budget.value) budget.value = eng.budget;
+      saveDraft();
+      return true;
+    }
+    function setService(o) {
+      serviceSel.value = o.value;
       setError(serviceSel, '');
       saveDraft();
       return true;
     }
+    function selectService(query) {
+      if (!query) return false;
+      if (applyEngagement(query)) return true;
+      var match = findOption(query);
+      return match ? setService(match) : false;
+    }
+    var lastEvent = null;
     document.addEventListener('pg:select-service', function (e) {
-      var s = e.detail && e.detail.service;
-      if (selectService(s)) showForm();
+      var d = e.detail || {};
+      var label = d.service || d.label;
+      var ok = false;
+      if (d.slug && applyEngagement(d.slug)) ok = true;
+      else {
+        // Known slug first, then the human label (fuzzy), then the slug words (fuzzy)
+        var match = (d.slug && findOption(d.slug, true)) || (label && findOption(label)) || (d.slug && findOption(d.slug));
+        if (match) ok = setService(match);
+      }
+      lastEvent = d.slug ? slugify(d.slug) : null;
+      if (ok) showForm();
     });
+    PG.contactSelectService = selectService;
     function readHash() {
       var h = location.hash || '';
       var m = /^#contact\?(.*)$/.exec(h);
       if (!m) return;
       var params = new URLSearchParams(m[1]);
       var svc = params.get('service');
-      if (svc && selectService(svc.replace(/-/g, ' '), true)) {
+      // Skip if a pg:select-service event already handled this exact slug (avoids double prefill)
+      if (svc && slugify(svc) === lastEvent) { lastEvent = null; return; }
+      if (svc && selectService(svc)) {
+        showForm();
         section.scrollIntoView({ behavior: PG.reducedMotion ? 'auto' : 'smooth' });
       }
     }

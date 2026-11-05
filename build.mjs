@@ -17,16 +17,41 @@ export function build() {
   cpSync(join(SRC, 'css'), join(DIST, 'css'), { recursive: true });
   cpSync(join(SRC, 'js'), join(DIST, 'js'), { recursive: true });
 
-  const sections = list(join(SRC, 'sections'), '.html')
+  // content/site.json (optional): section order/toggles + config/features exposed as window.PG_SITE.
+  const sitePath = join(ROOT, 'content', 'site.json');
+  const site = existsSync(sitePath) ? JSON.parse(readFileSync(sitePath, 'utf8')) : null;
+  let sectionFiles = list(join(SRC, 'sections'), '.html');
+  if (site && Array.isArray(site.sections)) {
+    const listed = site.sections.map((s) => s.file);
+    sectionFiles = site.sections
+      .filter((s) => s.enabled !== false && sectionFiles.includes(s.file)).map((s) => s.file)
+      .concat(sectionFiles.filter((f) => !listed.includes(f))); // unlisted files: appended, enabled
+    writeFileSync(join(DIST, 'site.json'), JSON.stringify(site, null, 2) + '\n');
+  }
+  const siteScript = site
+    ? `<script>window.PG_SITE=${JSON.stringify({ config: site.config || {}, features: site.features || {} }).replace(/</g, '\\u003c')}</script>\n    `
+    : '';
+
+  // Sections are grouped by landmark: *-nav.html renders before <main>, *-footer.html after </main>,
+  // everything else inside <main>. Each group keeps site.json / filename order.
+  const files = sectionFiles;
+  const render = (group) => group
     .map((f) => `<!-- ${f} -->\n` + readFileSync(join(SRC, 'sections', f), 'utf8').trim())
     .join('\n\n');
+  const isNav = (f) => /-nav\.html$/.test(f);
+  const isFooter = (f) => /-footer\.html$/.test(f);
+  const header = render(files.filter(isNav));
+  const footer = render(files.filter(isFooter));
+  const sections = render(files.filter((f) => !isNav(f) && !isFooter(f)));
   const styles = list(join(SRC, 'css'), '.css').map((f) => `<link rel="stylesheet" href="css/${f}">`).join('\n    ');
   const scripts = list(join(SRC, 'js'), '.js').map((f) => `<script src="js/${f}" defer></script>`).join('\n    ');
 
   const html = readFileSync(join(SRC, 'template.html'), 'utf8')
-    .replace('<!-- @styles -->', styles)
-    .replace('<!-- @scripts -->', scripts)
-    .replace('<!-- @sections -->', sections)
+    .replace('<!-- @styles -->', () => styles)
+    .replace('<!-- @scripts -->', () => siteScript + scripts)
+    .replace('<!-- @header -->', () => header)
+    .replace('<!-- @sections -->', () => sections)
+    .replace('<!-- @footer -->', () => footer)
     .replaceAll('{{year}}', String(new Date().getFullYear()));
   writeFileSync(join(DIST, 'index.html'), html);
   return html;
