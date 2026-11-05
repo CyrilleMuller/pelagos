@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cyrillemuller.github.io/pelagos/sitemap.xml
