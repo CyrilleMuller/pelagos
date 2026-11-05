@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Site Admin · Pelagos Global</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- ============ LOGIN / CONNECTION ============ -->
+  <section id="login" class="login" hidden>
+    <div class="login-card">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">P</span> Pelagos Global <small>Site admin</small></div>
+      <h1>Connect to GitHub</h1>
+      <p class="muted">Changes you make here are saved as commits to the website's GitHub repository. The site rebuilds automatically about a minute later.</p>
+      <form id="login-form" novalidate>
+        <div class="row3">
+          <label>Owner<input id="f-owner" name="owner" autocomplete="off" required value="cyrillemuller" /></label>
+          <label>Repository<input id="f-repo" name="repo" autocomplete="off" required value="pelagos" /></label>
+          <label>Branch<input id="f-branch" name="branch" autocomplete="off" required value="main" /></label>
+        </div>
+        <label>Personal access token
+          <input id="f-token" name="token" type="password" autocomplete="off" required placeholder="github_pat_…" aria-describedby="token-help" />
+        </label>
+        <p class="error" id="login-error" role="alert" hidden></p>
+        <div class="actions">
+          <button class="btn btn-primary" type="submit" id="login-btn">Connect</button>
+          <button class="btn btn-ghost" type="button" id="forget-btn">Forget saved token</button>
+        </div>
+      </form>
+      <details id="token-help" class="help">
+        <summary>How do I create a token?</summary>
+        <ol>
+          <li>On GitHub, open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Settings → Developer settings → Fine-grained tokens → Generate new token</a>.</li>
+          <li>Name it e.g. <em>Pelagos admin</em>, choose an expiration (90 days is a good balance).</li>
+          <li><strong>Repository access:</strong> “Only select repositories” → pick <code>pelagos</code>.</li>
+          <li><strong>Permissions → Repository:</strong> Contents <em>Read and write</em>, Pull requests <em>Read and write</em>, Issues <em>Read and write</em> (Metadata read-only is added automatically). Actions <em>Read</em> is optional, to show deploy status.</li>
+          <li>Generate, copy the token and paste it above. It is stored only in this browser (localStorage). Use “Forget saved token” on shared computers.</li>
+        </ol>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ APP ============ -->
+  <div id="app" hidden>
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">P</span> <span>Pelagos admin</span></div>
+      <span class="repo-pill" id="repo-pill"></span>
+      <div class="topbar-actions">
+        <a class="btn btn-ghost" id="live-link" target="_blank" rel="noopener">View live site ↗</a>
+        <button class="btn btn-ghost" id="pending-btn" type="button" aria-haspopup="dialog">Pending changes <span class="badge" id="pending-count">0</span></button>
+        <button class="btn btn-primary" id="publish-btn" type="button" disabled>Publish…</button>
+        <button class="btn btn-ghost" id="logout-btn" type="button" title="Disconnect and forget token">Log out</button>
+      </div>
+    </header>
+
+    <div id="deploy-status" class="deploy" hidden role="status" aria-live="polite"></div>
+
+    <nav class="tabs" role="tablist" aria-label="Admin sections">
+      <button role="tab" id="tab-sections" aria-controls="panel-sections" aria-selected="true">Sections</button>
+      <button role="tab" id="tab-editor" aria-controls="panel-editor" aria-selected="false">Editor</button>
+      <button role="tab" id="tab-settings" aria-controls="panel-settings" aria-selected="false">Site settings</button>
+      <button role="tab" id="tab-pages" aria-controls="panel-pages" aria-selected="false">Other pages &amp; translations</button>
+    </nav>
+
+    <main id="main">
+      <!-- Sections -->
+      <section role="tabpanel" id="panel-sections" aria-labelledby="tab-sections" class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Homepage sections</h2>
+            <p class="muted">Drag to reorder (or use the arrow buttons / <kbd>Alt</kbd>+<kbd>↑</kbd><kbd>↓</kbd>). Toggle to hide a section without deleting it.</p>
+          </div>
+          <button class="btn btn-primary" id="add-section-btn" type="button">+ Add new section</button>
+        </div>
+        <p class="notice" id="sections-notice" hidden></p>
+        <ol class="sec-list" id="sec-list" aria-label="Sections in page order"></ol>
+      </section>
+
+      <!-- Editor -->
+      <section role="tabpanel" id="panel-editor" aria-labelledby="tab-editor" class="panel" hidden>
+        <div class="panel-head">
+          <div>
+            <h2 id="editor-title">Editor</h2>
+            <p class="muted" id="editor-path">Open a section or page to edit it.</p>
+          </div>
+          <div class="actions">
+            <div class="seg" role="group" aria-label="Editor mode">
+              <button type="button" id="mode-visual" aria-pressed="true">Visual</button>
+              <button type="button" id="mode-code" aria-pressed="false">Code</button>
+            </div>
+            <button class="btn btn-ghost" id="preview-section-btn" type="button">Preview this section ↗</button>
+            <button class="btn btn-ghost" id="revert-btn" type="button">Revert</button>
+            <button class="btn btn-primary" id="stage-btn" type="button">Save to pending</button>
+          </div>
+        </div>
+        <p class="muted small" id="visual-hint">Click any text to edit it directly. Click an image to change it. Links do not navigate while editing.</p>
+        <div class="editor-wrap">
+          <iframe id="visual" title="Visual editor" sandbox="allow-same-origin"></iframe>
+          <label class="visually-hidden" for="code">HTML source</label>
+          <textarea id="code" spellcheck="false" hidden></textarea>
+        </div>
+      </section>
+
+      <!-- Settings -->
+      <section role="tabpanel" id="panel-settings" aria-labelledby="tab-settings" class="panel" hidden>
+        <div class="panel-head">
+          <div>
+            <h2>Site settings</h2>
+            <p class="muted">Stored in <code>content/site.json</code>. Used by the build for contact details and optional features.</p>
+          </div>
+          <button class="btn btn-primary" id="settings-stage-btn" type="button">Save to pending</button>
+        </div>
+        <p class="notice" id="settings-notice" hidden></p>
+        <form id="settings-form" class="settings" novalidate>
+          <fieldset><legend>Contact &amp; identity</legend><div class="grid" id="config-fields"></div></fieldset>
+          <fieldset><legend>Features</legend><div class="toggles" id="feature-fields"></div></fieldset>
+        </form>
+      </section>
+
+      <!-- Pages -->
+      <section role="tabpanel" id="panel-pages" aria-labelledby="tab-pages" class="panel" hidden>
+        <div class="panel-head">
+          <div>
+            <h2>Other pages &amp; translations</h2>
+            <p class="muted">Standalone pages (CV, speaker kit, French/Spanish/German versions, resources). These open in the code editor.</p>
+          </div>
+        </div>
+        <ul class="page-list" id="page-list"></ul>
+      </section>
+    </main>
+  </div>
+
+  <!-- Pending changes dialog -->
+  <dialog id="pending-dialog" aria-labelledby="pending-title">
+    <h2 id="pending-title">Pending changes</h2>
+    <p class="muted">Not yet published. Publish to send them all to GitHub in a single commit.</p>
+    <ul id="pending-list" class="pending-list"></ul>
+    <div class="actions"><button class="btn btn-ghost" value="close" formmethod="dialog" type="button" data-close>Close</button></div>
+  </dialog>
+
+  <!-- Publish dialog -->
+  <dialog id="publish-dialog" aria-labelledby="publish-title">
+    <form method="dialog" id="publish-form">
+      <h2 id="publish-title">Publish changes</h2>
+      <fieldset class="radio">
+        <legend>How?</legend>
+        <label><input type="radio" name="mode" value="direct" checked /> <span><strong>Publish now</strong> — commit straight to <code class="js-branch">main</code>. The live site updates in about a minute.</span></label>
+        <label><input type="radio" name="mode" value="pr" /> <span><strong>Propose changes</strong> — create a pull request for review before anything goes live.</span></label>
+      </fieldset>
+      <label>Description of the change<input id="commit-msg" required value="Content update via admin" /></label>
+      <ul id="publish-summary" class="pending-list compact"></ul>
+      <div class="actions">
+        <button class="btn btn-ghost" type="button" data-close>Cancel</button>
+        <button class="btn btn-primary" type="submit" id="publish-go">Publish</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Add section dialog -->
+  <dialog id="add-dialog" aria-labelledby="add-title">
+    <form method="dialog" id="add-form">
+      <h2 id="add-title">Add a new section</h2>
+      <label>Section name (used for the file name and anchor)<input id="add-name" required pattern="[A-Za-z0-9 \-]+" placeholder="e.g. Partners" /></label>
+      <fieldset class="radio" id="add-templates"><legend>Template</legend></fieldset>
+      <label>Insert after<select id="add-after"></select></label>
+      <div class="actions">
+        <button class="btn btn-ghost" type="button" data-close>Cancel</button>
+        <button class="btn btn-primary" type="submit">Add section</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Image dialog -->
+  <dialog id="img-dialog" aria-labelledby="img-title">
+    <form method="dialog" id="img-form">
+      <h2 id="img-title">Edit image</h2>
+      <label>Image URL or path (e.g. <code>images/photo.jpg</code>)<input id="img-src" required /></label>
+      <label>Description for screen readers (alt text)<input id="img-alt" /></label>
+      <p class="muted small">To upload a new image, add it to <code>public/images/</code> on GitHub first, then reference it here.</p>
+      <div class="actions">
+        <button class="btn btn-ghost" type="button" data-close>Cancel</button>
+        <button class="btn btn-primary" type="submit">Apply</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+  <script src="admin.js"></script>
+</body>
+</html>
