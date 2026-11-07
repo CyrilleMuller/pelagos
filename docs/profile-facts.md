@@ -13,6 +13,7 @@ Where copy is illustrative (e.g. sample engagements), label it as such.
 - Resource Development Manager — FrontierMEDEX — Feb 2003–May 2012 (company acquired by UnitedHealthcare). (Yale Daily News 2011 called her director of resource development at MEDEX; use LinkedIn title.)
 - International Services / Product Management — GlobalCare, Inc. (now Zelis) — 2001–2003.
 - Administrator / Logistician — Médecins du Monde — 1993–1995, Iquitos, Peru: NGO emergency medical assistance for cholera outbreak in the Amazon basin.
+- Lives in Portugal (since 2026; confirm exact date) and works with clients worldwide, remotely. (Her UnitedHealthcare Global role above was United States, remote: that historical fact stays.)
 So: career since 1993 (30+ years), 22+ years at FrontierMEDEX/UnitedHealth, ~13 years leading health intelligence at UnitedHealth. New service ideas you may use: Medical Emergency Response Plans for large events & remote locations; medical/transport provider quality assessment programs; country health surveillance & assignment briefings for globally mobile employees.
 
 ## Other public-source facts (lower confidence)
@@ -36,7 +37,7 @@ So: career since 1993 (30+ years), 22+ years at FrontierMEDEX/UnitedHealth, ~13 
   https://www.sciencedirect.com/science/article/pii/S1067991X25003372
 - Industry context: ITIC (International Travel & Health Insurance Conferences) — 2018 air ambulance industry
   trends report referenced her EURAMI role.
-- Based in the **United States**, works globally. Public quote theme: advocating for **better access to
+- Now lives in **Portugal** and works globally (see authoritative facts above; previously US-based). Public quote theme: advocating for **better access to
   quality healthcare worldwide**.
 - Personal touches the owner wants kept light: yoga enthusiast, devoted aunt.
 

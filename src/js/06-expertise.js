@@ -23,7 +23,7 @@
     [[172,-35],[178,-38],[172,-46],[167,-46]]
   ];
 
-  var BASE = [-77, 39]; // US base, for the connecting arc
+  var BASE = [-9.1, 38.7]; // Portugal base, for the connecting arc
 
   var REGIONS = {
     latam: {
@@ -34,14 +34,14 @@
     },
     namerica: {
       name: 'North America', at: [-95, 40], box: [-170, 85, -50, 15],
-      title: 'Home base for global programs',
-      text: 'Based in the United States. GlobalCare, FrontierMEDEX, then from 2012 to 2025 directing health, aeromedical and logistics intelligence at UnitedHealth Group and UnitedHealthcare Global.',
+      title: 'Two decades of global programs',
+      text: 'GlobalCare, FrontierMEDEX, then from 2012 to 2025 directing health, aeromedical and logistics intelligence at UnitedHealth Group and UnitedHealthcare Global.',
       tags: ['Global assistance', 'Insurers & TPAs', 'Universities']
     },
     europe: {
       name: 'Europe', at: [10, 50], box: [-12, 72, 40, 35],
       title: 'The aeromedical standards community',
-      text: 'EURAMI board member from 2012 to 2018 and Chair of its Ethics Committee since 2024, inside the accreditation body for air ambulance and medical escort providers. Educated at Université Paris 1 Panthéon-Sorbonne.',
+      text: 'Now based in Portugal. EURAMI board member from 2012 to 2018 and Chair of its Ethics Committee since 2024, inside the accreditation body for air ambulance and medical escort providers. Educated at Université Paris 1 Panthéon-Sorbonne.',
       tags: ['Accreditation', 'Ethics', 'Air ambulance']
     },
     mea: {
@@ -142,7 +142,7 @@
 
     function drawArc(key) {
       var a = px(BASE), b = px(REGIONS[key].at);
-      if (key === 'namerica') { arc.setAttribute('d', ''); return; }
+      if (key === 'europe') { arc.setAttribute('d', ''); return; }
       var mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2;
       var dist = Math.sqrt(Math.pow(b[0] - a[0], 2) + Math.pow(b[1] - a[1], 2));
       var cy = my - dist * 0.35;

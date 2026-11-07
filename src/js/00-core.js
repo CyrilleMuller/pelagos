@@ -12,8 +12,8 @@
     title: 'Global Healthcare Intelligence & Aeromedical Consultant',
     email: 'hello@pelagos.global',
     linkedin: 'https://www.linkedin.com/in/pascalinewolfermann/',
-    location: 'United States · working worldwide',
-    timezone: 'America/New_York',
+    location: 'Portugal · working worldwide',
+    timezone: 'Europe/Lisbon',
     bookingUrl: '#contact',
     formEndpoint: '' // e.g. https://formspree.io/f/xxxx — empty = mailto fallback
   }, SITE.config);

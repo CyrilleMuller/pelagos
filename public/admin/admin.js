@@ -8,7 +8,7 @@
   var SECTIONS_DIR = 'src/sections';
   var CONFIG_FIELDS = [
     ['name', 'Full name'], ['brand', 'Brand / company'], ['title', 'Professional title'], ['email', 'Email', 'email'],
-    ['linkedin', 'LinkedIn URL', 'url'], ['location', 'Location line'], ['timezone', 'Time zone (IANA, e.g. America/New_York)'],
+    ['linkedin', 'LinkedIn URL', 'url'], ['location', 'Location line'], ['timezone', 'Time zone (IANA, e.g. Europe/Lisbon)'],
     ['bookingUrl', 'Booking link (Calendly etc. or #contact)'], ['formEndpoint', 'Contact form endpoint (empty = email fallback)']
   ];
   var FEATURES = [
