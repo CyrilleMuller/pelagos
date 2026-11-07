@@ -9,7 +9,7 @@ Live preview: https://cyrillemuller.github.io/pelagos/
 - [ ] **Form endpoint** — `PG.config.formEndpoint` is empty, so contact + newsletter forms fall back to `mailto:`.
       Create a Formspree (or similar) form and paste its URL.
 - [ ] **Booking link** — `PG.config.bookingUrl` is `#contact`; set a Calendly/Cal.com URL to enable direct booking.
-- [ ] **Timezone / office hours** — `PG.config.timezone` (`America/New_York`) and weekday 9:00–18:00 in
+- [ ] **Timezone / office hours** — `PG.config.timezone` (`Europe/Lisbon`, as she lives in Portugal) and weekday 9:00–18:00 in
       `src/js/11-contact.js` are assumptions.
 - [ ] **Custom domain** — add `public/CNAME` and update canonical/OG URLs in `src/template.html`,
       `public/sitemap.xml`, `public/robots.txt`, translated pages.
