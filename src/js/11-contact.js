@@ -429,7 +429,7 @@
 
   /* ---------- Local time widget ---------- */
   function initClock(section) {
-    var tz = cfg.timezone || 'America/New_York';
+    var tz = cfg.timezone || 'Europe/Lisbon';
     var herTime = $('[data-contact-her-time]', section);
     var herZone = $('[data-contact-her-zone]', section);
     var status = $('[data-contact-status]', section);
@@ -455,7 +455,8 @@
       var zp = new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'short' }).formatToParts(new Date());
       zp.forEach(function (p) { if (p.type === 'timeZoneName') zoneName = p.value; });
     } catch (e) { /* ignore */ }
-    herZone.textContent = zoneName || tz.split('/').pop().replace(/_/g, ' ');
+    var city = tz.split('/').pop().replace(/_/g, ' ');
+    herZone.textContent = city + ' time' + (zoneName ? ' (' + zoneName + ')' : '');
 
     function parts(d) {
       var o = {};
@@ -499,7 +500,7 @@
       var target = new Date(d.getTime() + diffMinutes(d) * 60000);
       var str = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' }).format(target);
       var ph = target.getHours();
-      var note = (ph >= 9 && ph < 18) ? ' (within her office hours)' : ' (outside her office hours)';
+      var note = (ph >= 9 && ph < 18) ? ' (within her office hours, ' + city + ' time)' : ' (outside her office hours, ' + city + ' time)';
       out.textContent = str + ' for Pascaline' + note;
     }
     input.addEventListener('input', convert);
